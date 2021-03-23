@@ -40,9 +40,10 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
                             break;
-                        case 'P':
+                        case '%':
                             cell.setType(CellType.FLOOR);
                             new Potion(cell);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
