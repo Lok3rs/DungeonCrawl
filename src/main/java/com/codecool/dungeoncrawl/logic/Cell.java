@@ -50,6 +50,11 @@ public class Cell implements Drawable {
         return type.getTileName();
     }
 
+    @Override
+    public boolean isWalkable(){
+        return type.isWalkable();
+    }
+
     public int getX() {
         return x;
     }

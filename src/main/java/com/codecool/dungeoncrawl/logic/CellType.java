@@ -14,4 +14,11 @@ public enum CellType {
     public String getTileName() {
         return tileName;
     }
+
+    public boolean isWalkable(){
+        return switch (this) {
+            case EMPTY, FLOOR -> true;
+            case WALL -> false;
+        };
+    }
 }

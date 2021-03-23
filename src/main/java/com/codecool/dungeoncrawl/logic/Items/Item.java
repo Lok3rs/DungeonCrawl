@@ -23,4 +23,9 @@ public abstract class Item implements Drawable {
     public int getY() {
         return cell.getY();
     }
+
+    @Override
+    public boolean isWalkable() {
+        return true;
+    }
 }
