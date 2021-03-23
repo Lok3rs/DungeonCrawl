@@ -1,44 +1,22 @@
 package com.codecool.dungeoncrawl.logic.Items;
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.Drawable;
 
-public class Item {
+public abstract class Item implements Drawable {
     private Cell cell;
-    private String itemName;
-    private int itemDamage;
-    private int itemDefense;
+    private int itemDamage = 10;
+    private int itemDefense = 10;
 
-    public Item(Cell cell, String itemName, int itemDamage, int itemDefense) {
+    public Item(Cell cell) {
         this.cell = cell;
-        this.itemName = itemName;
-        this.itemDamage = itemDamage;
-        this.itemDefense = itemDefense;
+        this.cell.setItem(this);
     }
 
     public Cell getCell(){
         return cell;
     }
 
-    public String getItemName(){
-        return itemName;
-    }
-
-    public int getItemDamage(){
-        return itemDamage;
-    }
-
-    public int getItemDefense(){
-        return itemDefense;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public void setItemDamage(int itemDamage) {
-        this.itemDamage = itemDamage;
-    }
-
-    public void setItemDefense(int itemDefense) {
-        this.itemDefense = itemDefense;
+    public void setCell(Cell cell) {
+        this.cell = cell;
     }
 }
