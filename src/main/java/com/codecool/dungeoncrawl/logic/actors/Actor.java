@@ -22,7 +22,6 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
         } else if (nextActor != null && Monster.class.isAssignableFrom(nextActor.getClass())) {
-            System.out.println("GOT HERE");
             FightService.fight(this, nextActor);
         }
     }
