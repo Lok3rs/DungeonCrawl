@@ -17,11 +17,12 @@ public abstract class Actor implements Drawable {
 
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (nextCell.isWalkable() && nextCell.getActor() == null){
+        Actor nextActor = nextCell.getActor();
+        if (nextCell.isWalkable() && nextActor == null){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-        } else if (nextCell.getActor().getClass() == Skeleton.class) {
+        } else if (nextActor != null && nextActor.getClass() == Skeleton.class) {
             FightService.fight(this, nextCell.getActor());
         }
     }
