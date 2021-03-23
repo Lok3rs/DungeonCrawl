@@ -5,10 +5,9 @@ import com.codecool.dungeoncrawl.logic.fight.FightService;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
-    protected int health = 10;
-
-    protected int attack = 5;
-    protected int armor = 3;
+    protected int health;
+    protected int attack;
+    protected int armor;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -23,7 +22,7 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
         } else if (nextActor != null && nextActor.getClass() == Skeleton.class) {
-            FightService.fight(this, nextCell.getActor());
+            FightService.fight(this, nextActor);
         }
     }
 

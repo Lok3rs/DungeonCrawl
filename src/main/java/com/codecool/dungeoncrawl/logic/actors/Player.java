@@ -3,12 +3,13 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Player extends Actor {
-    private int health = 50;
-    private int armor = 10;
-    private int attack = 5;
+
 
     public Player(Cell cell) {
         super(cell);
+        this.health = 50;
+        this.attack = 10;
+        this.armor = 4;
     }
 
     public String getTileName() {
