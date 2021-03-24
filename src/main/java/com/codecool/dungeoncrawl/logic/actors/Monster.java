@@ -2,6 +2,10 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -10,6 +14,7 @@ public abstract class Monster extends Actor {
 
     public Monster(Cell cell) {
         super(cell);
+        startMoving();
     }
 
     @Override
@@ -39,5 +44,18 @@ public abstract class Monster extends Actor {
                 player.setHealth(player.getHealth() - (attack - player.getArmor()));
             }
         }
+    }
+
+    protected void startMoving(){
+        final Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.seconds( 1 ),
+                        event -> {
+                            if (isAlive()) move();
+                        }
+                )
+        );
+        timeline.setCycleCount( Animation.INDEFINITE );
+        timeline.play();
     }
 }

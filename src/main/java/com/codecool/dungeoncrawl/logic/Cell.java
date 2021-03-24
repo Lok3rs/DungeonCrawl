@@ -50,10 +50,17 @@ public class Cell implements Drawable {
 
     public List<Cell> getNeighbors(){
         List<Cell> neighbors = new ArrayList<>();
-        neighbors.add(gameMap.getCell(x + 1, y));
-        neighbors.add(gameMap.getCell(x - 1, y));
-        neighbors.add(gameMap.getCell(x, y + 1));
-        neighbors.add(gameMap.getCell(x, y - 1));
+        int[] bounds = {1, -1};
+        for (int bound : bounds){
+            try{
+                neighbors.add(gameMap.getCell(x + bound, y));
+            }
+            catch(ArrayIndexOutOfBoundsException ignored){;}
+            try{
+                neighbors.add(gameMap.getCell(x, y + bound));
+            }
+            catch(ArrayIndexOutOfBoundsException ignored){;}
+        }
         return neighbors;
     }
 
@@ -73,5 +80,9 @@ public class Cell implements Drawable {
 
     public int getY() {
         return y;
+    }
+
+    public boolean isNeighborOutOfBounds(int dx, int dy){
+        return gameMap.getHeight() <= this.x + dx && gameMap.getWidth() <= this.y + dy;
     }
 }

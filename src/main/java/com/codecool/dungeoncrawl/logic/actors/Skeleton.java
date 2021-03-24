@@ -18,7 +18,6 @@ public class Skeleton extends Monster {
         this.armor = 3;
         this.attack = 5;
         this.exp = 15;
-        startMoving();
     }
 
     @Override
@@ -47,16 +46,5 @@ public class Skeleton extends Monster {
         }
     }
 
-    private void startMoving(){
-        final Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.seconds( 1 ),
-                        event -> {
-                            if (isAlive()) move();
-                        }
-                )
-        );
-        timeline.setCycleCount( Animation.INDEFINITE );
-        timeline.play();
-    }
+
 }
