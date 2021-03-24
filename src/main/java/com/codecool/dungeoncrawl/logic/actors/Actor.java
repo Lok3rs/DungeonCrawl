@@ -1,11 +1,14 @@
 package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
+
+import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.fight.FightService;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
     protected int health;
+    protected Item item;
     protected int attack;
     protected int armor;
 
@@ -32,6 +35,10 @@ public abstract class Actor implements Drawable {
 
     public void setHealth(int newValue) {this.health = newValue;}
 
+    public Item getItem(){
+        return item;
+    }
+
     public Cell getCell() {
         return cell;
     }
@@ -43,7 +50,6 @@ public abstract class Actor implements Drawable {
     public int getY() {
         return cell.getY();
     }
-
 
     public int getAttack() {
         return attack;
@@ -62,7 +68,10 @@ public abstract class Actor implements Drawable {
     }
 
     public boolean isAlive(){
-        return this.health > 0;
+        return this.health > 0;}
+
+    public void setItem(Item item){
+        this.item = item;
     }
 
     @Override
