@@ -7,10 +7,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 
+import java.util.List;
 import java.util.Random;
 
 public class Skeleton extends Monster {
-    private Random random = new Random();
+    private final Random random = new Random();
     public Skeleton(Cell cell) {
         super(cell);
         this.health = 15;
@@ -36,12 +37,13 @@ public class Skeleton extends Monster {
         }
         Cell nextCell = cell.getNeighbor(dx, dy);
         Actor nextActor = nextCell.getActor();
-        if (nextCell.isWalkable() && nextActor == null){
+        if (isPlayerInNeighborhood()){
+            attackNeighborPlayer();
+        }
+        else if (nextCell.isWalkable() && nextActor == null){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-        } else if (nextActor != null && Player.class.isAssignableFrom(nextActor.getClass())) {
-            System.out.println("PLAYER!");
         }
     }
 
