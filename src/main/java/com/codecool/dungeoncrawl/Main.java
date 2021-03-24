@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,6 +14,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -86,19 +89,29 @@ public class Main extends Application {
     private void refresh() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                Cell cell = map.getCell(x, y);
-                if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x, y);
-                } else if (cell.getItem() != null){
-                    Tiles.drawTile(context, cell.getItem(), x, y);
-                }
-                else {
-                    Tiles.drawTile(context, cell, x, y);
+        if (map.getPlayer().getHealth() > 0){
+            for (int x = 0; x < map.getWidth(); x++) {
+                for (int y = 0; y < map.getHeight(); y++) {
+                    Cell cell = map.getCell(x, y);
+                    if (cell.getActor() != null) {
+                        Tiles.drawTile(context, cell.getActor(), x, y);
+                    } else if (cell.getItem() != null){
+                        Tiles.drawTile(context, cell.getItem(), x, y);
+                    }
+                    else {
+                        Tiles.drawTile(context, cell, x, y);
+                    }
                 }
             }
+        } else {
+            map.getPlayer().setHealth(0);
+            context.setFont(Font.font("Franklin Gothic Heavy"));
+            context.setFill(Color.RED);
+            context.setTextAlign(TextAlignment.CENTER);
+            context.setTextBaseline(VPos.CENTER);
+            context.fillText("GAME OVER", 400, 300);
         }
+
         levelLabel.setText("" + map.getPlayer().getLevel());
         expLabel.setText(String.format("%s / %s", map.getPlayer().getCurrentExp(), map.getPlayer().getExpToNextLevel()));
         healthLabel.setText("" + map.getPlayer().getHealth());
