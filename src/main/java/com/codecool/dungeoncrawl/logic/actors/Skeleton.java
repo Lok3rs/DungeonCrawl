@@ -8,6 +8,7 @@ public class Skeleton extends Monster {
         this.health = 15;
         this.armor = 3;
         this.attack = 5;
+        this.exp = 15;
     }
 
     @Override

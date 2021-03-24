@@ -1,8 +1,6 @@
 package com.codecool.dungeoncrawl.logic.fight;
 
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Player;
 
 public class FightService {
 
@@ -20,12 +18,11 @@ public class FightService {
         if (enemy.isAlive()){
             player.setHealth(playerCurrentHealth - (enemyAtk - playerDef));
         } else {
+            player.gainExp(enemy.getExp());
+            player.checkIfEnoughExp();
             enemy.getCell().setActor(null);
         }
     }
 
-    private boolean isAlive(Actor actor){
-        return actor.getHealth() > 0;
-    }
 
 }

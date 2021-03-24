@@ -78,4 +78,10 @@ public abstract class Actor implements Drawable {
     public boolean isWalkable() {
         return false;
     }
+
+    public void gainExp(int exp){}
+
+    public int getExp(){return 0;}
+
+    public void checkIfEnoughExp(){}
 }
