@@ -11,11 +11,14 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -47,6 +50,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -76,12 +80,14 @@ public class Main extends Application {
         borderPane.setRight(ui);
 
         Scene scene = new Scene(borderPane);
+        scene.setCursor(cursor);
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+        ui.setCursor(cursor);
         keepRefreshing();
     }
 
