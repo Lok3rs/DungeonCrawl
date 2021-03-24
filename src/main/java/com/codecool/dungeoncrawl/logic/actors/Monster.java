@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 public abstract class Monster extends Actor {
+    protected int exp;
+
     public Monster(Cell cell) {
         super(cell);
     }
@@ -11,5 +13,9 @@ public abstract class Monster extends Actor {
     @Override
     public String getTileName() {
         return null;
+    }
+
+    public int getExp(){
+        return this.exp;
     }
 }

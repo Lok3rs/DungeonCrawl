@@ -24,6 +24,8 @@ public class Main extends Application {
     Label healthLabel = new Label();
     Label attackLabel = new Label();
     Label armorLabel = new Label();
+    Label levelLabel = new Label();
+    Label expLabel = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -35,12 +37,16 @@ public class Main extends Application {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
-        ui.add(new Label("Attack: "), 0, 1);
-        ui.add(attackLabel, 1, 1);
-        ui.add(new Label("Armor: "), 0, 2);
-        ui.add(armorLabel, 1, 2);
+        ui.add(new Label("Level: "), 0, 0);
+        ui.add(levelLabel, 1, 0);
+        ui.add(new Label("Exp: "), 0, 1);
+        ui.add(expLabel, 1, 1);
+        ui.add(new Label("Health: "), 0, 2);
+        ui.add(healthLabel, 1, 2);
+        ui.add(new Label("Attack: "), 0, 3);
+        ui.add(attackLabel, 1, 3);
+        ui.add(new Label("Armor: "), 0, 4);
+        ui.add(armorLabel, 1, 4);
 
         BorderPane borderPane = new BorderPane();
 
@@ -58,22 +64,22 @@ public class Main extends Application {
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
-            case UP:
+            case UP -> {
                 map.getPlayer().move(0, -1);
                 refresh();
-                break;
-            case DOWN:
+            }
+            case DOWN -> {
                 map.getPlayer().move(0, 1);
                 refresh();
-                break;
-            case LEFT:
+            }
+            case LEFT -> {
                 map.getPlayer().move(-1, 0);
                 refresh();
-                break;
-            case RIGHT:
-                map.getPlayer().move(1,0);
+            }
+            case RIGHT -> {
+                map.getPlayer().move(1, 0);
                 refresh();
-                break;
+            }
         }
     }
 
@@ -93,6 +99,8 @@ public class Main extends Application {
                 }
             }
         }
+        levelLabel.setText("" + map.getPlayer().getLevel());
+        expLabel.setText(String.format("%s / %s", map.getPlayer().getCurrentExp(), map.getPlayer().getExpToNextLevel()));
         healthLabel.setText("" + map.getPlayer().getHealth());
         attackLabel.setText("" + map.getPlayer().getAttack());
         armorLabel.setText("" + map.getPlayer().getArmor());

@@ -8,6 +8,7 @@ public class Ghost extends Monster {
         this.health = 20;
         this.attack = 8;
         this.armor = 7;
+        this.exp = 20;
     }
 
     @Override
