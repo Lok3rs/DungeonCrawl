@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.fight.FightService;
 
 public abstract class Actor implements Drawable {
-    private Cell cell;
+    protected Cell cell;
     protected int health;
     protected Item item;
     protected int attack;

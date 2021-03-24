@@ -18,4 +18,6 @@ public abstract class Monster extends Actor {
     public int getExp(){
         return this.exp;
     }
+
+    public void move(){}
 }

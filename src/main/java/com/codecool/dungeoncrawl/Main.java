@@ -4,7 +4,10 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.Items.ItemService;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -79,6 +82,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+        keepRefreshing();
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -143,5 +147,18 @@ public class Main extends Application {
         attackLabel.setText("" + map.getPlayer().getAttack());
         armorLabel.setText("" + map.getPlayer().getArmor());
 
+    }
+
+    private void keepRefreshing(){
+        final Timeline timeline = new Timeline(
+                new KeyFrame(
+                        Duration.millis( 500 ),
+                        event -> {
+                            refresh();
+                        }
+                )
+        );
+        timeline.setCycleCount( Animation.INDEFINITE );
+        timeline.play();
     }
 }
