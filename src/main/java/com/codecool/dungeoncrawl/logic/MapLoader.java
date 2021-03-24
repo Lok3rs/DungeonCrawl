@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.Items.Potion;
 import com.codecool.dungeoncrawl.logic.Items.Sword;
 import com.codecool.dungeoncrawl.logic.actors.Ghost;
+import com.codecool.dungeoncrawl.logic.actors.Ghoul;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 
@@ -25,37 +26,34 @@ public class MapLoader {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
-                        case ' ':
-                            cell.setType(CellType.EMPTY);
-                            break;
-                        case '#':
-                            cell.setType(CellType.WALL);
-                            break;
-                        case '.':
-                            cell.setType(CellType.FLOOR);
-                            break;
-                        case 's':
+                        case ' ' -> cell.setType(CellType.EMPTY);
+                        case '#' -> cell.setType(CellType.WALL);
+                        case '.' -> cell.setType(CellType.FLOOR);
+                        case 's' -> {
                             cell.setType(CellType.FLOOR);
                             new Skeleton(cell);
-                            break;
-                        case 'g':
+                        }
+                        case 'g' -> {
                             cell.setType(CellType.FLOOR);
                             new Ghost(cell);
-                            break;
-                        case '@':
+                        }
+                        case 'G' -> {
+                            cell.setType(CellType.FLOOR);
+                            new Ghoul(cell);
+                        }
+                        case '@' -> {
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
-                            break;
-                        case '%':
+                        }
+                        case '%' -> {
                             cell.setType(CellType.FLOOR);
                             new Potion(cell);
-                            break;
-                        case '&':
+                        }
+                        case '&' -> {
                             cell.setType(CellType.FLOOR);
                             new Sword(cell);
-                            break;
-                        default:
-                            throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
+                        }
+                        default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
                 }
             }

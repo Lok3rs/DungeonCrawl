@@ -58,4 +58,5 @@ public abstract class Monster extends Actor {
         timeline.setCycleCount( Animation.INDEFINITE );
         timeline.play();
     }
+
 }
