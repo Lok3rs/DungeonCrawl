@@ -1,10 +1,12 @@
 package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Drawable;
+import com.codecool.dungeoncrawl.logic.Items.Item;
 
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 10;
+    private Item item;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -24,6 +26,10 @@ public abstract class Actor implements Drawable {
         return health;
     }
 
+    public Item getItem(){
+        return item;
+    }
+
     public Cell getCell() {
         return cell;
     }
@@ -34,6 +40,10 @@ public abstract class Actor implements Drawable {
 
     public int getY() {
         return cell.getY();
+    }
+
+    public void setItem(Item item){
+        this.item = item;
     }
 
     @Override
