@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
@@ -17,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
@@ -110,6 +112,13 @@ public class Main extends Application {
             context.setTextAlign(TextAlignment.CENTER);
             context.setTextBaseline(VPos.CENTER);
             context.fillText("GAME OVER", 400, 300);
+            PauseTransition delay = new PauseTransition(Duration.seconds(5));
+            delay.setOnFinished(event -> {
+                map.getPlayer().createPlayer();
+                map = MapLoader.loadMap();
+                refresh();
+            });
+            delay.play();
         }
 
         levelLabel.setText("" + map.getPlayer().getLevel());

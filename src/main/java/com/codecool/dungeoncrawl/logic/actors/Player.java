@@ -10,6 +10,10 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
+        createPlayer();
+    }
+
+    public void createPlayer(){
         this.health = 50;
         this.attack = 10;
         this.armor = 4;
