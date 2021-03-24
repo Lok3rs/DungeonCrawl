@@ -40,7 +40,7 @@ public class Skeleton extends Monster {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-        } else if (nextActor != null && Monster.class.isAssignableFrom(nextActor.getClass())) {
+        } else if (nextActor != null && Player.class.isAssignableFrom(nextActor.getClass())) {
             System.out.println("PLAYER!");
         }
     }
@@ -50,7 +50,7 @@ public class Skeleton extends Monster {
                 new KeyFrame(
                         Duration.seconds( 1 ),
                         event -> {
-                            move();
+                            if (isAlive()) move();
                         }
                 )
         );
