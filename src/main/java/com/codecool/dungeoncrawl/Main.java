@@ -100,6 +100,6 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
-        inventoryLabel.setText(" "+map.getPlayer().getInventory());
+        inventoryLabel.setText(" "+ itemService.inventoryToString(map.getPlayer().getInventory()));
     }
 }

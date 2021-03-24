@@ -14,6 +14,11 @@ public class ItemService {
     }
 
     public String inventoryToString(ArrayList<Item> inventory){
-        
+        ArrayList<String> inventoryItemNames = new ArrayList<>();
+        for (Item item : inventory) {
+            inventoryItemNames.add(item.getName());
+        }
+        String inventoryAsString = String.join(", ", inventoryItemNames);
+        return inventoryAsString;
     }
 }
