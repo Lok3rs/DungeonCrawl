@@ -21,7 +21,6 @@ public class ItemService {
         for (Item item : inventory) {
             inventoryItemNames.add(item.getName());
         }
-        String inventoryAsString = String.join(", ", inventoryItemNames);
-        return inventoryAsString;
+        return String.join(", ", inventoryItemNames);
     }
 }
