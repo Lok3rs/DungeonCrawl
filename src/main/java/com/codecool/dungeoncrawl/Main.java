@@ -101,21 +101,18 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case W -> {
                 map.getPlayer().move(0, -1);
-                refresh();
             }
             case S -> {
                 map.getPlayer().move(0, 1);
-                refresh();
             }
             case A -> {
                 map.getPlayer().move(-1, 0);
-                refresh();
             }
             case D -> {
                 map.getPlayer().move(1, 0);
-                refresh();
             }
         }
+        refresh();
         }
 
 
