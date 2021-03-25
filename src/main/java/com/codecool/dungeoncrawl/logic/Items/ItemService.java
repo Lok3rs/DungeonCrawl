@@ -6,12 +6,15 @@ import java.util.ArrayList;
 
 public class ItemService {
 
-    public void pickUpItem(Player player){
-        if (player.getCell().getItem() != null){
-            player.addToInventory(player.getCell().getItem());
+    public Item pickUpItem(Player player){
+        Item item = player.getCell().getItem();
+        if (item != null){
+            player.addToInventory(item);
             player.getCell().setItem(null);
         }
+        return item;
     }
+
 
     public String inventoryToString(ArrayList<Item> inventory){
         ArrayList<String> inventoryItemNames = new ArrayList<>();

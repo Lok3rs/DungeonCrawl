@@ -4,7 +4,8 @@ public enum CellType {
     EMPTY("empty"),
     FLOOR("floor"),
     WALL("wall"),
-    DOOR("door");
+    DOOR("door"),
+    OPENDOOR("opendoor");
 
     private final String tileName;
 
@@ -18,7 +19,7 @@ public enum CellType {
 
     public boolean isWalkable(){
         return switch (this) {
-            case EMPTY, FLOOR -> true;
+            case EMPTY, FLOOR, OPENDOOR -> true;
             case WALL, DOOR -> false;
         };
     }

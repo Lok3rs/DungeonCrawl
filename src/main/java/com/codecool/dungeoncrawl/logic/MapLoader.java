@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MapLoader {
@@ -16,6 +17,8 @@ public class MapLoader {
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
+
+        ArrayList<Key> keys = new ArrayList<>();
 
         scanner.nextLine(); // empty line
 
@@ -57,16 +60,17 @@ public class MapLoader {
                             break;
                         case '!':
                             cell.setType(CellType.FLOOR);
-                            new Key(cell);
-                            break;
-                        case 'X':
-                            cell.setType(CellType.DOOR);
+                            Key key = new Key(cell);
+                            keys.add(key);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
                 }
             }
+        }
+        for (Key key : keys) {
+            map.getCell(key.getDoorX(), key.getDoorY()).setType(CellType.DOOR);
         }
         return map;
     }

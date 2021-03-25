@@ -1,8 +1,11 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.Items.ItemService;
+import com.codecool.dungeoncrawl.logic.Items.Key;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -51,7 +54,10 @@ public class Main extends Application {
 
         ui.add(button, 0, 20);
         button.setOnAction(actionEvent ->  {
-            itemService.pickUpItem(map.getPlayer());
+            Item item = itemService.pickUpItem(map.getPlayer());
+            if (item instanceof Key){
+                map.getCell(((Key) item).getDoorX(), ((Key) item).getDoorY()).setType(CellType.OPENDOOR);
+            }
         });
 
         ui.add(new Label("Level: "), 0, 0);
