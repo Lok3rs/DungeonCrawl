@@ -3,6 +3,9 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
@@ -16,6 +19,8 @@ public class Cell implements Drawable {
         this.y = y;
         this.type = type;
     }
+
+    public GameMap getGameMap(){return this.gameMap;}
 
     public CellType getType() {
         return type;
@@ -45,6 +50,22 @@ public class Cell implements Drawable {
         return gameMap.getCell(x + dx, y + dy);
     }
 
+    public List<Cell> getNeighbors(){
+        List<Cell> neighbors = new ArrayList<>();
+        int[] bounds = {1, -1};
+        for (int bound : bounds){
+            try{
+                neighbors.add(gameMap.getCell(x + bound, y));
+            }
+            catch(ArrayIndexOutOfBoundsException ignored){}
+            try{
+                neighbors.add(gameMap.getCell(x, y + bound));
+            }
+            catch(ArrayIndexOutOfBoundsException ignored){}
+        }
+        return neighbors;
+    }
+
     @Override
     public String getTileName() {
         return type.getTileName();
@@ -61,5 +82,12 @@ public class Cell implements Drawable {
 
     public int getY() {
         return y;
+    }
+
+    public boolean isNeighborOutOfBounds(int dx, int dy){
+        return gameMap.getWidth()  <= this.y + dy &&
+                gameMap.getHeight() <= this.x + dx &&
+                this.x + dx >= 0 &&
+                this.y + dy >= 0;
     }
 }
