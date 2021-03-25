@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.engine.gui;
 
 import com.codecool.dungeoncrawl.Tiles;
+import com.codecool.dungeoncrawl.engine.Engine;
 import com.codecool.dungeoncrawl.engine.eventhandlers.KeyboardEventHandler;
 import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
@@ -18,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainScene {
@@ -34,9 +36,6 @@ public class MainScene {
         this.rightGridPane = new RightGridPane(map);
         this.context = canvas.getGraphicsContext2D();
     }
-
-
-
 
     public Scene createScene(){
         ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
@@ -68,7 +67,6 @@ public class MainScene {
 
     private void handleGameOver(){
         map.getPlayer().setHealth(0);
-//        context.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         context.setFont(Font.font("Franklin Gothic Heavy"));
         context.setFill(Color.RED);
         context.setTextAlign(TextAlignment.CENTER);
@@ -76,7 +74,6 @@ public class MainScene {
         context.fillText("GAME OVER", 400, 300);
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(event -> {
-            map.getPlayer().createPlayer();
             map = MapLoader.loadMap();
             refresh();
         });

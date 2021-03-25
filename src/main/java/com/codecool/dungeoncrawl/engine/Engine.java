@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 
 
 public class Engine extends Application {
-
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
