@@ -16,7 +16,7 @@ public class FightService {
         enemy.setHealth(enemyCurrentHealth - (playerAtk - enemyDef));
 
         if (enemy.isAlive()){
-            player.setHealth(playerCurrentHealth - (enemyAtk - playerDef));
+            player.setHealth(Math.min(playerCurrentHealth, playerCurrentHealth - (enemyAtk - playerDef * 2)));
         } else {
             player.gainExp(enemy.getExp());
             player.checkIfEnoughExp();

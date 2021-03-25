@@ -17,7 +17,7 @@ public class Player extends Actor {
         createPlayer();
     }
 
-    public void createPlayer(){
+    public void createPlayer() {
         this.health = 50;
         this.attack = 10;
         this.armor = 4;
@@ -27,8 +27,6 @@ public class Player extends Actor {
         this.expToNextLevel = 100;
     }
 
-
-
     public void addToInventory(Item item) {
         inventory.add(item);
     }
@@ -36,7 +34,6 @@ public class Player extends Actor {
     public String getTileName() {
         return "player";
     }
-
 
     @Override
     public int getHealth() {
@@ -61,14 +58,14 @@ public class Player extends Actor {
         return level;
     }
 
-    public void checkIfEnoughExp(){
-        if (currentExp >= expToNextLevel){
+    public void checkIfEnoughExp() {
+        if (currentExp >= expToNextLevel) {
             levelUp();
         }
     }
 
     private void levelUp() {
-        this.level+= 1;
+        this.level += 1;
         this.currentExp = this.currentExp - this.expToNextLevel;
         this.expToNextLevel += 50 * level;
         this.health += 30;

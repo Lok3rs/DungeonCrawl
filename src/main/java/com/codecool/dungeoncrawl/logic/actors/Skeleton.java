@@ -1,13 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.fight.FightService;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 
-import java.util.List;
 import java.util.Random;
 
 public class Skeleton extends Monster {
@@ -29,11 +23,8 @@ public class Skeleton extends Monster {
     public void move() {
         int dx = 0;
         int dy = 0;
-        if (random.nextBoolean()){
-            dx = random.nextBoolean() ? 1 : -1;
-        } else {
-            dy = random.nextBoolean() ? 1 : -1;
-        }
+        if (random.nextBoolean()) dx = random.nextBoolean() ? 1 : -1;
+        else dy = random.nextBoolean() ? 1 : -1;
         Cell nextCell = cell.getNeighbor(dx, dy);
         Actor nextActor = nextCell.getActor();
         if (isPlayerInNeighborhood()){
