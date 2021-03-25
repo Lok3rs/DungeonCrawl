@@ -70,7 +70,7 @@ public class Main extends Application {
         ui.add(attackLabel, 1, 3);
         ui.add(new Label("Armor: "), 0, 4);
         ui.add(armorLabel, 1, 4);
-        ui.add(new Label("INVENTORY"), 0, 5);
+        ui.add(new Label("Inventory: "), 0, 5);
         ui.add(inventoryLabel, 0,6);
 
         BorderPane borderPane = new BorderPane();

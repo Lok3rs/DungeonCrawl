@@ -60,8 +60,13 @@ public class MapLoader {
                             break;
                         case '!':
                             cell.setType(CellType.FLOOR);
-                            Key key = new Key(cell);
-                            keys.add(key);
+                            Key keyOne = new Key(cell, 15, 3, "Gold Key");
+                            keys.add(keyOne);
+                            break;
+                        case '=':
+                            cell.setType(CellType.FLOOR);
+                            Key keyTwo = new Key(cell, 20,9, "Silver Key");
+                            keys.add(keyTwo);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

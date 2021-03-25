@@ -6,10 +6,10 @@ public class Key extends Item{
     private final int doorX;
     private final int doorY;
 
-    public Key (Cell cell){
-        super(cell, "Key");
-        this.doorX = 15;
-        this.doorY = 3;
+    public Key (Cell cell, int X, int Y, String name){
+        super(cell, name);
+        this.doorX = X;
+        this.doorY = Y;
     }
 
     public int getDoorX() {
