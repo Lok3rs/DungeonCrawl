@@ -14,7 +14,6 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.VPos;
-import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -52,7 +51,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage){
         ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
         GridPane ui = new GridPane();
         ui.setPrefWidth(200);
@@ -99,18 +98,10 @@ public class Main extends Application {
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
-            case W -> {
-                map.getPlayer().move(0, -1);
-            }
-            case S -> {
-                map.getPlayer().move(0, 1);
-            }
-            case A -> {
-                map.getPlayer().move(-1, 0);
-            }
-            case D -> {
-                map.getPlayer().move(1, 0);
-            }
+            case W -> map.getPlayer().move(0, -1);
+            case S -> map.getPlayer().move(0, 1);
+            case A -> map.getPlayer().move(-1, 0);
+            case D -> map.getPlayer().move(1, 0);
         }
         refresh();
         }
@@ -163,9 +154,7 @@ public class Main extends Application {
         final Timeline timeline = new Timeline(
                 new KeyFrame(
                         Duration.millis( 500 ),
-                        event -> {
-                            refresh();
-                        }
+                        event -> refresh()
                 )
         );
         timeline.setCycleCount( Animation.INDEFINITE );
