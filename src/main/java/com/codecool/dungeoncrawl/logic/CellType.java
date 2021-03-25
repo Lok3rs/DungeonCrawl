@@ -3,7 +3,8 @@ package com.codecool.dungeoncrawl.logic;
 public enum CellType {
     EMPTY("empty"),
     FLOOR("floor"),
-    WALL("wall");
+    WALL("wall"),
+    DOOR("door");
 
     private final String tileName;
 
@@ -18,7 +19,7 @@ public enum CellType {
     public boolean isWalkable(){
         return switch (this) {
             case EMPTY, FLOOR -> true;
-            case WALL -> false;
+            case WALL, DOOR -> false;
         };
     }
 }
