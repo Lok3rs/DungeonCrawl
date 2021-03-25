@@ -49,7 +49,6 @@ public class Ghoul extends Monster {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-            System.out.println(getDistanceFromEnemy());
         }
     }
 

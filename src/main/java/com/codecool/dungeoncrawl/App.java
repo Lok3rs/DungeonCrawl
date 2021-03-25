@@ -1,7 +1,9 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.engine.Engine;
+
 public class App {
     public static void main(String[] args) {
-        Main.main(args);
+        Engine.main(args);
     }
 }
