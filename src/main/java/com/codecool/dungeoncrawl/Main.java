@@ -99,22 +99,23 @@ public class Main extends Application {
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
-            case W:
+            case W -> {
                 map.getPlayer().move(0, -1);
                 refresh();
-                break;
-            case S:
+            }
+            case S -> {
                 map.getPlayer().move(0, 1);
                 refresh();
-                break;
-            case A:
+            }
+            case A -> {
                 map.getPlayer().move(-1, 0);
                 refresh();
-                break;
-            case D:
-                map.getPlayer().move(1,0);
+            }
+            case D -> {
+                map.getPlayer().move(1, 0);
                 refresh();
             }
+        }
         }
 
 
