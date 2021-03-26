@@ -42,7 +42,14 @@ public abstract class Monster extends Actor {
         for (Cell neighbor : neighbors){
             if (neighbor.getActor() != null && neighbor.getActor().getClass() == Player.class){
                 Actor player = neighbor.getActor();
-                player.setHealth(player.getHealth() - (attack - player.getArmor()));
+                int damageCaused = attack - player.getArmor();
+                player.setHealth(player.getHealth() - damageCaused);
+                if (damageCaused > 0){
+                    LogPane.log(String.format("%d damage received from %s", damageCaused, getTileName()));
+                } else {
+                    LogPane.log(String.format("Attack try by %s successfully defended.", getTileName()));
+                }
+
             }
         }
     }
@@ -52,7 +59,10 @@ public abstract class Monster extends Actor {
                 new KeyFrame(
                         Duration.seconds( 1 ),
                         event -> {
-                            if (isAlive()) move();
+                            try{
+                                if (isAlive()) move();
+                            } catch(ArrayIndexOutOfBoundsException ignored){}
+
                         }
                 )
         );

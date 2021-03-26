@@ -72,6 +72,7 @@ public class Player extends Actor {
         this.health += 30;
         this.attack += 10;
         this.armor += 5;
+        LogPane.log(String.format("Level up! Your current level is %d.", this.level));
     }
 
     public void gainExp(int enemyExp) {

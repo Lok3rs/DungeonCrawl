@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.Items;
 
+import com.codecool.dungeoncrawl.engine.gui.LogPane;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class ItemService {
         Item item = player.getCell().getItem();
         if (item != null){
             player.addToInventory(item);
+            LogPane.log(String.format("You picked up %s.", item.getName()));
             player.getCell().setItem(null);
         }
         return item;
