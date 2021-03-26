@@ -9,10 +9,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 
-public class RightGridPane {
-    GameMap map;
+public class RightGridPane extends BorderGridPane {
     ItemService itemService = new ItemService();
     Button button = new Button("Pick Up!");
     Label healthLabel = new Label();
@@ -21,13 +19,14 @@ public class RightGridPane {
     Label armorLabel = new Label();
     Label levelLabel = new Label();
     Label expLabel = new Label();
-    GridPane ui = new GridPane();
 
-    public RightGridPane(GameMap map){
-        this.map = map;
+
+    public RightGridPane(GameMap map) {
+        super(map);
     }
 
-    public void setGirdPane(BorderPane parentPane) {
+    @Override
+    public void setGridPane(BorderPane parentPane) {
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
         addButtons();

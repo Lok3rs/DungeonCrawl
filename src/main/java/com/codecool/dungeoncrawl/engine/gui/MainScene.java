@@ -27,6 +27,7 @@ public class MainScene {
     GameMap map;
     KeyboardEventHandler keyboardEventHandler;
     RightGridPane rightGridPane;
+    LogPane logPane;
     GraphicsContext context;
 
     public MainScene(Canvas canvas, GameMap map){
@@ -34,6 +35,7 @@ public class MainScene {
         this.map = map;
         this.keyboardEventHandler = new KeyboardEventHandler(this, map);
         this.rightGridPane = new RightGridPane(map);
+        this.logPane = new LogPane(map);
         this.context = canvas.getGraphicsContext2D();
     }
 
@@ -41,7 +43,8 @@ public class MainScene {
         ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
-        rightGridPane.setGirdPane(borderPane);
+        rightGridPane.setGridPane(borderPane);
+        logPane.setGridPane(borderPane);
         Scene scene = new Scene(borderPane);
         scene.setCursor(cursor);
         scene.setOnKeyPressed(keyboardEventHandler::onKeyPressed);
