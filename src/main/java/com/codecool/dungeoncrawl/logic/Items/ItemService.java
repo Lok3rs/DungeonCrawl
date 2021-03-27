@@ -23,6 +23,6 @@ public class ItemService {
         for (Item item : inventory) {
             inventoryItemNames.add(item.getName());
         }
-        return String.join(", ", inventoryItemNames);
+        return String.join("\n ", inventoryItemNames);
     }
 }
