@@ -74,6 +74,9 @@ public class MapLoader {
                             cell.setType(CellType.WALL);
                             new Rock(cell);
                         }
+                        case 'V' -> {
+                            cell.setType(CellType.SPIKES);
+                        }
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
 
                     }

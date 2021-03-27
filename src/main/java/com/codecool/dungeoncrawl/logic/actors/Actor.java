@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.engine.gui.LogPane;
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 import com.codecool.dungeoncrawl.logic.Items.Item;
@@ -25,6 +26,9 @@ public abstract class Actor implements Drawable {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
+            if (nextCell.getType() == CellType.SPIKES){
+                this.health = this.health - 1;
+            }
         } else if (nextActor != null && Monster.class.isAssignableFrom(nextActor.getClass())) {
             FightService.fight(this, nextActor);
         }

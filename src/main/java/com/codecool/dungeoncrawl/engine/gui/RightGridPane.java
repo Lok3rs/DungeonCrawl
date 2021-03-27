@@ -48,6 +48,7 @@ public class RightGridPane extends BorderGridPane {
         ui.add(button, 0, 20);
         button.setOnAction(actionEvent -> {
             Item item = itemService.pickUpItem(map.getPlayer());
+
             if (item instanceof Key) {
                 map.getCell(((Key) item).getDoorX(), ((Key) item).getDoorY()).setType(CellType.OPENDOOR);
             }
