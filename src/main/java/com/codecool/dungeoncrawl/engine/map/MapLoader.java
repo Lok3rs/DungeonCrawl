@@ -67,12 +67,10 @@ public class MapLoader {
                             keys.add(keyTwo);
                         }
                         case '?' -> {
-                            cell.setType(CellType.FLOOR);
-                            new Cobweb(cell);
+                            cell.setType(CellType.COBWEB);
                         }
                         case '8' -> {
-                            cell.setType(CellType.WALL);
-                            new Rock(cell);
+                            cell.setType(CellType.ROCK);
                         }
                         case 'V' -> {
                             cell.setType(CellType.SPIKES);
