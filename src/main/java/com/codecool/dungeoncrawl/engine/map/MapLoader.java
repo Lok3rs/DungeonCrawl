@@ -70,6 +70,10 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Cobweb(cell);
                         }
+                        case '8' -> {
+                            cell.setType(CellType.WALL);
+                            new Rock(cell);
+                        }
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
 
                     }
