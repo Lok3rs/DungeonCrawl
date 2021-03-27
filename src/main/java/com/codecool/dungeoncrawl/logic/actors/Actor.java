@@ -26,7 +26,7 @@ public abstract class Actor implements Drawable {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
-            if (nextCell.getType() == CellType.SPIKES){
+            if (nextCell.getType() == CellType.SPIKES && this instanceof Player){
                 this.health = this.health - 1;
             }
         } else if (nextActor != null && Monster.class.isAssignableFrom(nextActor.getClass())) {
