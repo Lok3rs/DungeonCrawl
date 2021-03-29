@@ -1,21 +1,16 @@
 package com.codecool.dungeoncrawl.engine.menu;
 
 import com.codecool.dungeoncrawl.engine.gui.MainScene;
-import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainMenu {
@@ -52,7 +47,6 @@ public class MainMenu {
         Button startGame = new Button();
 
         startGame.setText("Start Game");
-
         startGame.setOnMouseClicked(mouseEvent -> {
             stage.hide();
             stage.setScene(mainScene.createScene());
@@ -65,6 +59,7 @@ public class MainMenu {
         Button exit = new Button();
         exit.setText("Exit");
         exit.relocate(10, 10);
+        exit.setOnMouseClicked(mouseEvent -> stage.hide());
 
         stackPane.getChildren().addAll(canvas, startGame, loadGame, exit);
         startGame.setTranslateY(-80);
