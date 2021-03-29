@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.engine.gui.MainScene;
 import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
+import com.codecool.dungeoncrawl.engine.menu.MainMenu;
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
@@ -23,9 +24,11 @@ public class Engine extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setScene(mainScene.createScene());
+//        primaryStage.setScene(mainScene.createScene());
+        MainMenu menu = new MainMenu(primaryStage, mainScene);
+        menu.handleMainMenu();
         primaryStage.setTitle("Dungeon Crawl");
-        primaryStage.show();
+//        primaryStage.show();
     }
 
 }
