@@ -15,7 +15,7 @@ public abstract class Monster extends Actor {
 
     public Monster(Cell cell) {
         super(cell);
-        startMoving();
+//        startMoving();
     }
 
     @Override

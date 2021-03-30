@@ -1,6 +1,6 @@
 package com.codecool.dungeoncrawl.engine.menu;
 
-import com.codecool.dungeoncrawl.engine.gui.MainScene;
+import com.codecool.dungeoncrawl.engine.gui.MainController;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,14 +16,14 @@ import javafx.stage.Stage;
 public class MainMenu {
 
     Stage stage;
-    MainScene mainScene;
+    MainController mainController;
 
     Canvas canvas = new Canvas(720, 640);
     GraphicsContext context = canvas.getGraphicsContext2D();
 
-    public MainMenu(Stage stage, MainScene mainScene){
+    public MainMenu(Stage stage, MainController mainController){
         this.stage = stage;
-        this.mainScene = mainScene;
+        this.mainController = mainController;
     }
 
     public void handleMainMenu(){
@@ -49,7 +49,7 @@ public class MainMenu {
         startGame.setText("Start Game");
         startGame.setOnMouseClicked(mouseEvent -> {
             stage.hide();
-            stage.setScene(mainScene.createScene());
+            stage.setScene(mainController.createScene());
             stage.show();
         });
 
