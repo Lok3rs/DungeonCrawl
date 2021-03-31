@@ -42,8 +42,8 @@ public class MainController {
 
     public void run(Stage stage){
         this.stage = stage;
-        MainMenu menu = new MainMenu(stage, this);
-        menu.handleMainMenu();
+        MainMenu menu = new MainMenu(this);
+        menu.handleMenu();
         stage.setTitle("Dungeon Crawl");
     }
 

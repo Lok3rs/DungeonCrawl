@@ -12,6 +12,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 public abstract class Menu {
 
@@ -52,4 +53,11 @@ public abstract class Menu {
     }
     protected void createTitleAndBackground(){}
     protected void createButtons(StackPane stackPane){}
+
+    protected Button createExitButton(){
+        Button exit = new javafx.scene.control.Button();
+        exit.setText("Exit");
+        exit.setOnMouseClicked(mouseEvent -> stage.close());
+        return exit;
+    }
 }
