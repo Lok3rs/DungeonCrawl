@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.engine.Engine;
 import com.codecool.dungeoncrawl.engine.eventhandlers.KeyboardEventHandler;
 import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
+import com.codecool.dungeoncrawl.engine.menu.GameOverMenu;
 import com.codecool.dungeoncrawl.engine.menu.MainMenu;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 import javafx.animation.Animation;
@@ -26,15 +27,16 @@ import javafx.util.Duration;
 
 public class MainController {
     Canvas canvas;
-    GameMap map;
-    KeyboardEventHandler keyboardEventHandler;
-    RightGridPane rightGridPane;
-    LogPane logPane;
-    GraphicsContext context;
-    Stage stage;
+    public GameMap map;
+    public KeyboardEventHandler keyboardEventHandler;
+    public RightGridPane rightGridPane;
+    public LogPane logPane;
+    public GraphicsContext context;
+    public Stage stage;
     final Timeline timeline = new Timeline(
             new KeyFrame(Duration.millis(500),
                     event -> refresh()));
+    GameOverMenu gameOverMenu;
 
     public MainController(Canvas canvas, GameMap map){
         this.canvas = canvas;
@@ -43,6 +45,7 @@ public class MainController {
         this.rightGridPane = new RightGridPane(map);
         this.logPane = new LogPane(map);
         this.context = canvas.getGraphicsContext2D();
+        this.gameOverMenu = new GameOverMenu(this);
     }
 
     public void run(Stage stage){
@@ -73,16 +76,18 @@ public class MainController {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         if (map.getPlayer().getHealth() > 0) map.refreshMap(context);
-        else handleGameOver();
+        else {
+            gameOverMenu.handleGameOver();
+        }
         rightGridPane.refreshLabels();
     }
 
-    private void keepRefreshing(){
+    public void keepRefreshing(){
         timeline.setCycleCount( Animation.INDEFINITE );
         timeline.play();
     }
 
-    private void stopRefreshing(){
+    public void stopRefreshing(){
         timeline.stop();
     }
 
@@ -97,7 +102,7 @@ public class MainController {
             monster.stopMoving();
             monster.getCell().setActor(null);
         }
-        LogPane.clearLogs();
+        LogPane.log("You are dead.");
         stopRefreshing();
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> {
@@ -107,6 +112,7 @@ public class MainController {
             keyboardEventHandler = new KeyboardEventHandler(this, map);
             stage.setScene(createScene());
             stage.show();
+            LogPane.clearLogs();
             keepRefreshing();
 
         });
