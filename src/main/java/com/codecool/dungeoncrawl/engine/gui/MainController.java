@@ -88,12 +88,14 @@ public class MainController {
         context.setTextAlign(TextAlignment.CENTER);
         context.setTextBaseline(VPos.CENTER);
         context.fillText("GAME OVER", 400, 300);
-        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> {
-            MapLoader.monsters.clear();
             map = MapLoader.loadMap();
+            this.rightGridPane = new RightGridPane(map);
+            this.logPane = new LogPane(map);
             keyboardEventHandler = new KeyboardEventHandler(this, map);
             stage.setScene(createScene());
+            stage.show();
             refresh();
 
         });
