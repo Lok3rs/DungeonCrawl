@@ -45,6 +45,7 @@ public class RightGridPane extends BorderGridPane {
     }
 
     private void addButtons() {
+        ui.getChildren().remove(button);
         ui.add(button, 0, 20);
         button.setOnAction(actionEvent -> {
             Item item = itemService.pickUpItem(map.getPlayer());
@@ -55,6 +56,7 @@ public class RightGridPane extends BorderGridPane {
     }
 
     private void addLabels() {
+        
         ui.add(new Label("Level: "), 0, 0);
         ui.add(levelLabel, 1, 0);
         ui.add(new Label("Exp: "), 0, 1);
