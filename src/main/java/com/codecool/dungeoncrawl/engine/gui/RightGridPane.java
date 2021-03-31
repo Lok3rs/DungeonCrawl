@@ -56,7 +56,7 @@ public class RightGridPane extends BorderGridPane {
     }
 
     private void addLabels() {
-        
+        ui.getChildren().removeAll(levelLabel, expLabel, healthLabel, attackLabel, armorLabel, inventoryLabel);
         ui.add(new Label("Level: "), 0, 0);
         ui.add(levelLabel, 1, 0);
         ui.add(new Label("Exp: "), 0, 1);

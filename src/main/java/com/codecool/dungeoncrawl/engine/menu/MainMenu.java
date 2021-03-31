@@ -16,13 +16,6 @@ public class MainMenu extends Menu{
     }
 
     @Override
-    protected Scene drawMenu(){
-        StackPane stackPane = new StackPane();
-        createTitleAndBackground();
-        createButtons(stackPane);
-        return new Scene(stackPane);
-    }
-    @Override
     protected void createButtons(StackPane stackPane){
         Button startGame = new Button();
         startGame.setText("Start Game");

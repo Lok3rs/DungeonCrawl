@@ -49,7 +49,10 @@ public abstract class Menu {
     protected void beforeMenuDisplayEvents(){}
 
     protected Scene drawMenu(){
-        return new Scene(new StackPane());
+        StackPane stackPane = new StackPane();
+        createTitleAndBackground();
+        createButtons(stackPane);
+        return new Scene(stackPane);
     }
     protected void createTitleAndBackground(){}
     protected void createButtons(StackPane stackPane){}

@@ -37,12 +37,12 @@ public class MainController {
         this.rightGridPane = new RightGridPane(map);
         this.logPane = new LogPane(map);
         this.context = canvas.getGraphicsContext2D();
-        this.gameOverMenu = new GameOverMenu(this);
     }
 
     public void run(Stage stage){
         this.stage = stage;
         MainMenu menu = new MainMenu(this);
+        this.gameOverMenu = new GameOverMenu(this);
         menu.handleMenu();
         stage.setTitle("Dungeon Crawl");
     }
