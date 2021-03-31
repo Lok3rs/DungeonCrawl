@@ -59,7 +59,7 @@ public class MainMenu {
         Button exit = new Button();
         exit.setText("Exit");
         exit.relocate(10, 10);
-        exit.setOnMouseClicked(mouseEvent -> stage.hide());
+        exit.setOnMouseClicked(mouseEvent -> stage.close());
 
         stackPane.getChildren().addAll(canvas, startGame, loadGame, exit);
         startGame.setTranslateY(-80);
