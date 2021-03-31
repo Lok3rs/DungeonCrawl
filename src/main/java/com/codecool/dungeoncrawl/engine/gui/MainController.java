@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.engine.eventhandlers.KeyboardEventHandler;
 import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
 import com.codecool.dungeoncrawl.engine.menu.MainMenu;
+import com.codecool.dungeoncrawl.logic.actors.Monster;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -31,6 +32,9 @@ public class MainController {
     LogPane logPane;
     GraphicsContext context;
     Stage stage;
+    final Timeline timeline = new Timeline(
+            new KeyFrame(Duration.millis(500),
+                    event -> refresh()));
 
     public MainController(Canvas canvas, GameMap map){
         this.canvas = canvas;
@@ -61,7 +65,7 @@ public class MainController {
         Scene scene = new Scene(borderPane);
         scene.setCursor(cursor);
         scene.setOnKeyPressed(keyboardEventHandler::onKeyPressed);
-//        keepRefreshing();
+        keepRefreshing();
         return scene;
     }
 
@@ -74,11 +78,12 @@ public class MainController {
     }
 
     private void keepRefreshing(){
-        final Timeline timeline = new Timeline(
-                new KeyFrame(Duration.millis(500),
-                        event -> refresh()));
         timeline.setCycleCount( Animation.INDEFINITE );
         timeline.play();
+    }
+
+    private void stopRefreshing(){
+        timeline.stop();
     }
 
     private void handleGameOver(){
@@ -88,6 +93,12 @@ public class MainController {
         context.setTextAlign(TextAlignment.CENTER);
         context.setTextBaseline(VPos.CENTER);
         context.fillText("GAME OVER", 400, 300);
+        for (Monster monster : MapLoader.monsters) {
+            monster.stopMoving();
+            monster.getCell().setActor(null);
+        }
+        LogPane.clearLogs();
+        stopRefreshing();
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(event -> {
             map = MapLoader.loadMap();
@@ -96,7 +107,7 @@ public class MainController {
             keyboardEventHandler = new KeyboardEventHandler(this, map);
             stage.setScene(createScene());
             stage.show();
-            refresh();
+            keepRefreshing();
 
         });
         delay.play();
