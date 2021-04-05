@@ -6,12 +6,14 @@ import com.codecool.dungeoncrawl.engine.eventhandlers.KeyboardEventHandler;
 import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
 import com.codecool.dungeoncrawl.engine.menu.MainMenu;
+import com.codecool.dungeoncrawl.logic.Items.inventory.InventoryController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.geometry.VPos;
 import javafx.scene.ImageCursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -27,18 +29,24 @@ public class MainController {
     Canvas canvas;
     GameMap map;
     KeyboardEventHandler keyboardEventHandler;
+    BorderPane borderPane;
     RightGridPane rightGridPane;
     LogPane logPane;
     GraphicsContext context;
     Stage stage;
+    private boolean isInventoryOn;
+    private final InventoryController inventoryController;
 
     public MainController(Canvas canvas, GameMap map){
         this.canvas = canvas;
         this.map = map;
         this.keyboardEventHandler = new KeyboardEventHandler(this, map);
+        this.borderPane = new BorderPane();
         this.rightGridPane = new RightGridPane(map);
         this.logPane = new LogPane(map);
         this.context = canvas.getGraphicsContext2D();
+        this.isInventoryOn = false;
+        this.inventoryController = new InventoryController();
     }
 
     public void run(Stage stage){
@@ -54,7 +62,6 @@ public class MainController {
 
     public Scene createScene(){
         ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
-        BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
         rightGridPane.setGridPane(borderPane);
         logPane.setGridPane(borderPane);
@@ -100,5 +107,32 @@ public class MainController {
 
         });
         delay.play();
+    }
+
+    public GraphicsContext getContext() {
+        return context;
+    }
+
+    public GameMap getMap() {
+        return map;
+    }
+
+    public BorderPane getMainPane() {
+        return borderPane;
+    }
+
+    public Node getCanvas() {
+        return canvas;
+    }
+
+
+    public void switchInventory() {
+        if (isInventoryOn) {
+            isInventoryOn = false;
+            getMainPane().setCenter(canvas);
+        } else {
+            isInventoryOn = true;
+            inventoryController.run(borderPane);
+        }
     }
 }
