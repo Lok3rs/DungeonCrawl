@@ -41,8 +41,18 @@ public class Tiles {
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {
+        drawTile(context, d, x, y, 1);
+    }
+
+    public static void drawTile(GraphicsContext context, Drawable d, int x, int y, int scale) {
         Tile tile = tileMap.get(d.getTileName());
         context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
-                x * TILE_WIDTH, y * TILE_WIDTH, TILE_WIDTH, TILE_WIDTH);
+                x * TILE_WIDTH, y * TILE_WIDTH, scale*TILE_WIDTH, scale*TILE_WIDTH);
+    }
+
+    public static void drawBigTile(GraphicsContext context, String name, int x, int y) {
+        Tile tile = tileMap.get(name);
+        context.drawImage(tileset, tile.x, tile.y, tile.w, tile.h,
+                x * TILE_WIDTH, y * TILE_WIDTH, 2*TILE_WIDTH, 2*TILE_WIDTH);
     }
 }

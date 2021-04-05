@@ -46,7 +46,10 @@ public class MainController {
         this.logPane = new LogPane(map);
         this.context = canvas.getGraphicsContext2D();
         this.isInventoryOn = false;
-        this.inventoryController = new InventoryController();
+        this.inventoryController = new InventoryController(
+                map.getWidth() * Tiles.TILE_WIDTH,
+                map.getHeight() * Tiles.TILE_WIDTH,
+                map.getPlayer().getInventory());
     }
 
     public void run(Stage stage){
