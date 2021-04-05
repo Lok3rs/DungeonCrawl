@@ -9,10 +9,13 @@ import com.codecool.dungeoncrawl.logic.actors.*;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MapLoader {
+    public static List<Monster> monsters = new ArrayList<>();
     public static GameMap loadMap() {
+
         InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
@@ -34,15 +37,15 @@ public class MapLoader {
                         case '.' -> cell.setType(CellType.FLOOR);
                         case 's' -> {
                             cell.setType(CellType.FLOOR);
-                            new Skeleton(cell);
+                            monsters.add(new Skeleton(cell));
                         }
                         case 'g' -> {
                             cell.setType(CellType.FLOOR);
-                            new Ghost(cell);
+                            monsters.add(new Ghost(cell));
                         }
                         case 'G' -> {
                             cell.setType(CellType.FLOOR);
-                            new Ghoul(cell);
+                            monsters.add(new Ghoul(cell));
                         }
                         case '@' -> {
                             cell.setType(CellType.FLOOR);
