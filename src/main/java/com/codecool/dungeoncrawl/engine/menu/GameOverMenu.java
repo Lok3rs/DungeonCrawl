@@ -1,22 +1,17 @@
 package com.codecool.dungeoncrawl.engine.menu;
 
-import com.codecool.dungeoncrawl.engine.eventhandlers.KeyboardEventHandler;
 import com.codecool.dungeoncrawl.engine.gui.LogPane;
 import com.codecool.dungeoncrawl.engine.gui.MainController;
-import com.codecool.dungeoncrawl.engine.gui.RightGridPane;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
-import javafx.scene.ImageCursor;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 
-public class GameOverMenu extends Menu{
+public class GameOverMenu extends Menu {
 
-    public GameOverMenu(MainController mainController){
+    public GameOverMenu(MainController mainController) {
         super(mainController);
     }
 
@@ -34,15 +29,15 @@ public class GameOverMenu extends Menu{
     }
 
     @Override
-    protected void createTitleAndBackground(){
-        mainController.context.setFill(Color.BLACK);
-        mainController.context.fillRect(0, 0, mainController.canvas.getWidth(), mainController.canvas.getHeight());
-        mainController.context.setFill(Color.RED);
-        mainController.context.fillText("GAME OVER", 320, 200);
+    protected void createTitleAndBackground() {
+        context.setFill(Color.BLACK);
+        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        context.setFill(Color.RED);
+        context.fillText("GAME OVER", 320, 200);
     }
 
     @Override
-    protected void createButtons(StackPane stackPane){
+    protected void createButtons(StackPane stackPane) {
         Button startGame = new Button();
 
         startGame.setText("Play again");
@@ -55,14 +50,11 @@ public class GameOverMenu extends Menu{
         startGame.setTranslateY(-80);
     }
 
-    private void playAgain(){
-        map = MapLoader.loadMap();
-        rightGridPane = new RightGridPane(map);
-        logPane = new LogPane(map);
-        keyboardEventHandler = new KeyboardEventHandler(mainController, map);
+    private void playAgain() {
         stage.setScene(mainController.createScene());
         stage.show();
         LogPane.clearLogs();
-        mainController.keepRefreshing();
     }
+
+
 }

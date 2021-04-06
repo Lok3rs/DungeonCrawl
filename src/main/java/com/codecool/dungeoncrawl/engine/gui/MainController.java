@@ -1,7 +1,9 @@
 package com.codecool.dungeoncrawl.engine.gui;
 
+import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.engine.eventhandlers.KeyboardEventHandler;
 import com.codecool.dungeoncrawl.engine.map.GameMap;
+import com.codecool.dungeoncrawl.engine.map.MapLoader;
 import com.codecool.dungeoncrawl.engine.menu.GameOverMenu;
 import com.codecool.dungeoncrawl.engine.menu.MainMenu;
 import javafx.animation.Animation;
@@ -18,28 +20,22 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainController {
-    public Canvas canvas;
-    public GameMap map;
-    public KeyboardEventHandler keyboardEventHandler;
-    public RightGridPane rightGridPane;
-    public LogPane logPane;
-    public GraphicsContext context;
-    public Stage stage;
-    final Timeline timeline = new Timeline(
+    private GameMap map = MapLoader.loadMap();
+    private final Canvas canvas = new Canvas(
+            map.getWidth() * Tiles.TILE_WIDTH,
+            map.getHeight() * Tiles.TILE_WIDTH);
+    private KeyboardEventHandler keyboardEventHandler;
+    private RightGridPane rightGridPane;
+    private LogPane logPane;
+    private final GraphicsContext context = canvas.getGraphicsContext2D();
+    private Stage stage;
+    private final Timeline timeline = new Timeline(
             new KeyFrame(Duration.millis(500),
                     event -> refresh()));
-    GameOverMenu gameOverMenu;
+    private GameOverMenu gameOverMenu;
 
-    public MainController(Canvas canvas, GameMap map){
-        this.canvas = canvas;
-        this.map = map;
-        this.keyboardEventHandler = new KeyboardEventHandler(this, map);
-        this.rightGridPane = new RightGridPane(map);
-        this.logPane = new LogPane(map);
-        this.context = canvas.getGraphicsContext2D();
-    }
 
-    public void run(Stage stage){
+    public void run(Stage stage) {
         this.stage = stage;
         MainMenu menu = new MainMenu(this);
         this.gameOverMenu = new GameOverMenu(this);
@@ -47,34 +43,38 @@ public class MainController {
         stage.setTitle("Dungeon Crawl");
     }
 
-    public Canvas getCanvas(){
+    public Canvas getCanvas() {
         return this.canvas;
     }
 
-    public KeyboardEventHandler getKeyboardEventHandler(){
+    public KeyboardEventHandler getKeyboardEventHandler() {
         return this.keyboardEventHandler;
     }
 
-    public RightGridPane getRightGridPane(){
+    public RightGridPane getRightGridPane() {
         return this.rightGridPane;
     }
 
-    public LogPane getLogPane(){
+    public LogPane getLogPane() {
         return this.logPane;
     }
 
-    public GameMap getMap(){
+    public GameMap getMap() {
         return this.map;
     }
 
-    public Stage getStage(){
+    public Stage getStage() {
         return this.stage;
     }
 
-    public Scene createScene(){
+    public Scene createScene() {
         ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(canvas);
+        this.map = MapLoader.loadMap();
+        this.rightGridPane = new RightGridPane(map);
+        this.logPane = new LogPane(map);
+        this.keyboardEventHandler = new KeyboardEventHandler(this, map);
         rightGridPane.setGridPane(borderPane);
         logPane.setGridPane(borderPane);
         Scene scene = new Scene(borderPane);
@@ -94,12 +94,12 @@ public class MainController {
         rightGridPane.refreshLabels();
     }
 
-    public void keepRefreshing(){
-        timeline.setCycleCount( Animation.INDEFINITE );
+    public void keepRefreshing() {
+        timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
 
-    public void stopRefreshing(){
+    public void stopRefreshing() {
         timeline.stop();
     }
 
