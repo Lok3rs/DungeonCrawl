@@ -16,11 +16,11 @@ public class InventoryController {
     public InventoryController(int width,int height, ArrayList<Item> inventory) {
         this.inventoryCanvas = new Canvas(width, height);
         this.inventory = inventory;
-        this.inventoryScreen = new InventoryScreen(inventory);
+        this.inventoryScreen = new InventoryScreen(inventory, inventoryCanvas);
     }
 
     public void run(BorderPane mainPane) {
         mainPane.setCenter(inventoryCanvas);
-        inventoryScreen.drawInventory(inventoryCanvas);
+        inventoryScreen.drawInventory();
     }
 }
