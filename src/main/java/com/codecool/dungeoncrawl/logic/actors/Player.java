@@ -11,11 +11,13 @@ public class Player extends Actor {
     private int currentExp;
     private int expToNextLevel;
 
+
     private ArrayList<Item> inventory;
 
-    public Player(Cell cell) {
+    public Player(Cell cell, boolean cheatMode) {
         super(cell);
         createPlayer();
+        this.cheatMode = cheatMode;
     }
 
     public void createPlayer() {
@@ -74,6 +76,7 @@ public class Player extends Actor {
         this.armor += 5;
         LogPane.log(String.format("Level up! Your current level is %d.", this.level));
     }
+
 
     public void gainExp(int enemyExp) {
         this.currentExp += enemyExp;

@@ -3,11 +3,16 @@ package com.codecool.dungeoncrawl.engine.menu;
 import com.codecool.dungeoncrawl.engine.gui.MainController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 
 public class MainMenu extends Menu{
+
+    private TextField textField;
 
 
     public MainMenu(MainController mainController){
@@ -24,11 +29,22 @@ public class MainMenu extends Menu{
         Button loadGame = new Button();
         loadGame.setText("Load saved game");
 
+        Label label1 = new Label("Name:");
+        textField = new TextField ();
+        HBox hb = new HBox();
+
+
+        hb.getChildren().addAll(label1, textField);
+        hb.setSpacing(10);
+
         Button exit = createExitButton();
 
-        stackPane.getChildren().addAll(canvas, startGame, loadGame, exit);
-        startGame.setTranslateY(-80);
+        stackPane.getChildren().addAll(canvas, startGame, loadGame, exit, hb);
+        startGame.setTranslateY(-100);
         loadGame.setTranslateY(-40);
+        hb.setTranslateY(240);
+        hb.setTranslateX(280);
+
     }
 
     @Override
@@ -41,8 +57,12 @@ public class MainMenu extends Menu{
 
     private void startNewGame(){
         stage.hide();
-        stage.setScene(mainController.createScene());
+        stage.setScene(mainController.createScene(checkIfCheat()));
         stage.show();
+    }
+
+    private boolean checkIfCheat(){
+        return textField.getText().equals("Dawid") || textField.getText().equals("Gabriela");
     }
 
 }

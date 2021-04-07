@@ -13,6 +13,7 @@ public abstract class Actor implements Drawable {
     protected Item item;
     protected int attack;
     protected int armor;
+    protected boolean cheatMode = false;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -22,7 +23,7 @@ public abstract class Actor implements Drawable {
     public void move(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         Actor nextActor = nextCell.getActor();
-        if (nextCell.isWalkable() && nextActor == null){
+        if ((nextCell.isWalkable() || isCheater()) && nextActor == null){
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
@@ -89,4 +90,8 @@ public abstract class Actor implements Drawable {
     public int getExp(){return 0;}
 
     public void checkIfEnoughExp(){}
+
+    public boolean isCheater(){
+        return this.cheatMode;
+    }
 }

@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainController {
-    private GameMap map = MapLoader.loadMap();
+    private GameMap map = MapLoader.loadMap(false);
     private final Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -70,11 +70,11 @@ public class MainController {
         return this.stage;
     }
 
-    public Scene createScene() {
+    public Scene createScene(boolean cheatMode) {
         ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
         this.borderPane = new BorderPane();
         borderPane.setCenter(canvas);
-        this.map = MapLoader.loadMap();
+        this.map = MapLoader.loadMap(cheatMode);
         this.rightGridPane = new RightGridPane(map);
         this.logPane = new LogPane(map);
         this.keyboardEventHandler = new KeyboardEventHandler(this, map);

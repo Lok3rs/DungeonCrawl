@@ -51,7 +51,7 @@ public class GameOverMenu extends Menu {
     }
 
     private void playAgain() {
-        stage.setScene(mainController.createScene());
+        stage.setScene(mainController.createScene(true));
         stage.show();
         LogPane.clearLogs();
     }

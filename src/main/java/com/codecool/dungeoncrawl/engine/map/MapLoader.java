@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 public class MapLoader {
     public static List<Monster> monsters = new ArrayList<>();
-    public static GameMap loadMap() {
+    public static GameMap loadMap(boolean cheatMode) {
 
         InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
         Scanner scanner = new Scanner(is);
@@ -49,7 +49,7 @@ public class MapLoader {
                         }
                         case '@' -> {
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
+                            map.setPlayer(new Player(cell, cheatMode));
                         }
                         case '%' -> {
                             cell.setType(CellType.FLOOR);
