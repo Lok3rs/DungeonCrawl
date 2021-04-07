@@ -6,10 +6,12 @@ import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
 import com.codecool.dungeoncrawl.engine.menu.GameOverMenu;
 import com.codecool.dungeoncrawl.engine.menu.MainMenu;
+import com.codecool.dungeoncrawl.logic.Items.inventory.InventoryController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.ImageCursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,6 +35,12 @@ public class MainController {
             new KeyFrame(Duration.millis(500),
                     event -> refresh()));
     private GameOverMenu gameOverMenu;
+    private BorderPane borderPane;
+    private final InventoryController inventoryController = new InventoryController(
+            map.getWidth() * Tiles.TILE_WIDTH,
+            map.getHeight() * Tiles.TILE_WIDTH,
+            map.getPlayer().getInventory());
+    private boolean isInventoryOn = false;
 
 
     public void run(Stage stage) {
@@ -43,9 +51,7 @@ public class MainController {
         stage.setTitle("Dungeon Crawl");
     }
 
-    public Canvas getCanvas() {
-        return this.canvas;
-    }
+
 
     public KeyboardEventHandler getKeyboardEventHandler() {
         return this.keyboardEventHandler;
@@ -59,9 +65,6 @@ public class MainController {
         return this.logPane;
     }
 
-    public GameMap getMap() {
-        return this.map;
-    }
 
     public Stage getStage() {
         return this.stage;
@@ -69,7 +72,7 @@ public class MainController {
 
     public Scene createScene() {
         ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
-        BorderPane borderPane = new BorderPane();
+        this.borderPane = new BorderPane();
         borderPane.setCenter(canvas);
         this.map = MapLoader.loadMap();
         this.rightGridPane = new RightGridPane(map);
@@ -101,6 +104,33 @@ public class MainController {
 
     public void stopRefreshing() {
         timeline.stop();
+    }
+
+    public GraphicsContext getContext() {
+        return context;
+    }
+
+    public GameMap getMap() {
+        return map;
+    }
+
+    public BorderPane getMainPane() {
+        return borderPane;
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
+    }
+
+
+    public void switchInventory() {
+        if (isInventoryOn) {
+            isInventoryOn = false;
+            getMainPane().setCenter(canvas);
+        } else {
+            isInventoryOn = true;
+            inventoryController.run(borderPane);
+        }
     }
 
 }

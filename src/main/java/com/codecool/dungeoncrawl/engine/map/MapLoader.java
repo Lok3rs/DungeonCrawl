@@ -69,6 +69,15 @@ public class MapLoader {
                             Key keyTwo = new Key(cell, 20, 9, "Silver Key");
                             keys.add(keyTwo);
                         }
+                        case '?' -> {
+                            cell.setType(CellType.COBWEB);
+                        }
+                        case '8' -> {
+                            cell.setType(CellType.ROCK);
+                        }
+                        case 'V' -> {
+                            cell.setType(CellType.SPIKES);
+                        }
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
 
                     }

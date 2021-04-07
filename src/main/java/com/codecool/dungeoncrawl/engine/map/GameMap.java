@@ -11,7 +11,6 @@ public class GameMap {
     private final int width;
     private final int height;
     private final Cell[][] cells;
-
     private Player player;
     private Item item;
 

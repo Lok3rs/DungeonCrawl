@@ -13,6 +13,9 @@ public class ItemService {
             player.addToInventory(item);
             LogPane.log(String.format("You picked up %s.", item.getName()));
             player.getCell().setItem(null);
+            if (item.getName().equals("Sword")){
+                player.setAttack(player.getAttack() + 3);
+            }
         }
         return item;
     }
@@ -23,6 +26,6 @@ public class ItemService {
         for (Item item : inventory) {
             inventoryItemNames.add(item.getName());
         }
-        return String.join(", ", inventoryItemNames);
+        return String.join("\n ", inventoryItemNames);
     }
 }
