@@ -11,12 +11,12 @@ import javafx.stage.Stage;
 
 
 public class Engine extends Application {
-    GameMap map = MapLoader.loadMap();
-    Canvas canvas = new Canvas(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH);
+//    GameMap map = MapLoader.loadMap();
+//    Canvas canvas = new Canvas(
+//            map.getWidth() * Tiles.TILE_WIDTH,
+//            map.getHeight() * Tiles.TILE_WIDTH);
 
-    public MainController mainController = new MainController(canvas, map);
+    public MainController mainController = new MainController();
 
     public static void main(String[] args) {
         launch(args);
