@@ -8,9 +8,6 @@ public class Sword extends Item{
         super(cell, "Sword");
     }
 
-    public void addDamage(Player player){
-    }
-
     @Override
     public String getTileName() {
         return "sword";
