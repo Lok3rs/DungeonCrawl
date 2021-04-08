@@ -36,10 +36,7 @@ public class MainController {
                     event -> refresh()));
     private GameOverMenu gameOverMenu;
     private BorderPane borderPane;
-    private final InventoryController inventoryController = new InventoryController(
-            map.getWidth() * Tiles.TILE_WIDTH,
-            map.getHeight() * Tiles.TILE_WIDTH,
-            map.getPlayer().getInventory());
+    private InventoryController inventoryController;
     private boolean isInventoryOn = false;
 
 
@@ -81,6 +78,10 @@ public class MainController {
         rightGridPane.setGridPane(borderPane);
         logPane.setGridPane(borderPane);
         Scene scene = new Scene(borderPane);
+        this.inventoryController = new InventoryController(
+                map.getWidth() * Tiles.TILE_WIDTH,
+                map.getHeight() * Tiles.TILE_WIDTH,
+                map.getPlayer().getInventory());
         scene.setCursor(cursor);
         scene.setOnKeyPressed(keyboardEventHandler::onKeyPressed);
         keepRefreshing();
