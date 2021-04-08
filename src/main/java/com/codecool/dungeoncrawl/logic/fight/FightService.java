@@ -2,12 +2,13 @@ package com.codecool.dungeoncrawl.logic.fight;
 
 import com.codecool.dungeoncrawl.engine.gui.LogPane;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Monster;
 
 import java.util.Locale;
 
 public class FightService {
 
-    public static void fight(Actor player, Actor enemy){
+    public static void fight(Actor player, Monster enemy){
         int playerAtk = player.getAttack();
         int playerDef = player.getArmor();
         int playerCurrentHealth =  player.getHealth();
@@ -29,6 +30,7 @@ public class FightService {
             player.gainExp(enemy.getExp());
             player.checkIfEnoughExp();
             enemy.getCell().setActor(null);
+            enemy.stopMoving();
             LogPane.log(String.format("%s killed. You gained %d experience.", enemyNameCapitalized, enemy.getExp()));
         }
     }

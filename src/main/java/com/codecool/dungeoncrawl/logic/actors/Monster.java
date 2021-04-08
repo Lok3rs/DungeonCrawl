@@ -12,10 +12,21 @@ import java.util.List;
 
 public abstract class Monster extends Actor {
     protected int exp;
+    protected final Timeline timeline = new Timeline(
+            new KeyFrame(
+                    Duration.seconds( 1 ),
+                    event -> {
+                        try{
+                            if (isAlive()) move();
+                        } catch(ArrayIndexOutOfBoundsException ignored){}
+
+                    }
+            )
+    );
 
     public Monster(Cell cell) {
         super(cell);
-//        startMoving();
+        startMoving();
     }
 
     @Override
@@ -55,19 +66,12 @@ public abstract class Monster extends Actor {
     }
 
     protected void startMoving(){
-        final Timeline timeline = new Timeline(
-                new KeyFrame(
-                        Duration.seconds( 1 ),
-                        event -> {
-                            try{
-                                if (isAlive()) move();
-                            } catch(ArrayIndexOutOfBoundsException ignored){}
-
-                        }
-                )
-        );
         timeline.setCycleCount( Animation.INDEFINITE );
         timeline.play();
+    }
+
+    public void stopMoving(){
+        timeline.stop();
     }
 
 }

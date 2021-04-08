@@ -19,6 +19,7 @@ public class LogPane extends BorderGridPane{
 
     @Override
     public void setGridPane(BorderPane parentPane) {
+        ui.getChildren().removeAll(logMessage1, logMessage2, logMessage3);
         ui.setPrefHeight(50);
         ui.setPadding(new Insets(5));
         ui.add(logMessage3, 0, 0);
