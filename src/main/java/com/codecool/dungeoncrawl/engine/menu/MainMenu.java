@@ -24,9 +24,26 @@ public class MainMenu extends Menu{
     protected void createButtons(StackPane stackPane){
         Button startGame = new Button();
         startGame.setText("Start Game");
+        startGame.setStyle("-fx-background-color:" +
+                "linear-gradient(#f0ff35, #a9ff00)," +
+                "radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);" +
+                "-fx-background-radius: 30;" +
+                "-fx-background-insets: 0;" +
+                "-fx-padding: 10 20 10 20;" +
+                "-fx-text-fill: black;");
         startGame.setOnMouseClicked(mouseEvent -> startNewGame());
 
         Button loadGame = new Button();
+        loadGame.setStyle("-fx-background-color:" +
+                "linear-gradient(#ffd65b, #e68400)," +
+                "linear-gradient(#ffef84, #f2ba44)," +
+                "linear-gradient(#ffea6a, #efaa22)," +
+                "linear-gradient(#ffe657 0%, #f8c202 50%, #eea10b 100%)," +
+                "linear-gradient(from 0% 0% to 15% 50%, rgba(255,255,255,0.9), rgba(255,255,255,0));" +
+                "-fx-background-radius: 30;" +
+                "-fx-background-insets: 0,1,2,3,0;" +
+                "-fx-text-fill: #654b00;" +
+                "-fx-padding: 10 20 10 20;");
         loadGame.setText("Load saved game");
 
         Label label1 = new Label("Name:");
@@ -52,7 +69,7 @@ public class MainMenu extends Menu{
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         context.setFill(Color.RED);
-        context.fillText("MAIN MENU", 320, 200);
+        context.fillText("MAIN MENU", 360, 170);
     }
 
     private void startNewGame(){
