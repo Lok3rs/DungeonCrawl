@@ -6,6 +6,10 @@ import com.codecool.dungeoncrawl.logic.Items.Key;
 import com.codecool.dungeoncrawl.logic.Items.Potion;
 import com.codecool.dungeoncrawl.logic.Items.Sword;
 import com.codecool.dungeoncrawl.logic.actors.*;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Ghost;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Ghoul;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Skeleton;
 
 import java.io.InputStream;
 import java.util.ArrayList;
