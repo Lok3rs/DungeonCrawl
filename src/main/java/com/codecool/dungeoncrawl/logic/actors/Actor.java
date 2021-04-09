@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 
 import com.codecool.dungeoncrawl.logic.Items.Item;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 import com.codecool.dungeoncrawl.logic.fight.FightService;
 
 public abstract class Actor implements Drawable {
@@ -28,6 +29,7 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
             if (nextCell.getType() == CellType.SPIKES && this instanceof Player){
+                LogPane.log("Ouch! Spikes!");
                 this.health = this.health - 1;
             }
         } else if (nextActor != null && Monster.class.isAssignableFrom(nextActor.getClass())) {

@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.engine.menu;
 import com.codecool.dungeoncrawl.engine.gui.LogPane;
 import com.codecool.dungeoncrawl.engine.gui.MainController;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
-import com.codecool.dungeoncrawl.logic.actors.Monster;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
