@@ -7,7 +7,8 @@ import javafx.scene.input.KeyEvent;
 
 public class KeyboardEventHandler {
     private final MainController mainController;
-    private final GameMap map;
+
+    private  GameMap map;
 
 
     public KeyboardEventHandler(MainController mainController, GameMap map){
@@ -25,4 +26,9 @@ public class KeyboardEventHandler {
         }
         mainController.refresh();
     }
+
+    public void setMap(GameMap map) {
+        this.map = map;
+    }
+
 }

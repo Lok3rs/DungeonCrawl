@@ -39,6 +39,7 @@ public class Tiles {
         tileMap.put("cobweb", new Tile(2,15));
         tileMap.put("rock", new Tile(5,2));
         tileMap.put("spikes", new Tile(22,0));
+        tileMap.put("stairway", new Tile(3,6));
         tileMap.put("a", new Tile(19, 30));
         tileMap.put("b", new Tile(20, 30));
         tileMap.put("c", new Tile(21, 30));

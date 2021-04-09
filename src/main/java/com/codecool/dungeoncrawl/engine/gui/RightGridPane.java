@@ -68,8 +68,6 @@ public class RightGridPane extends BorderGridPane {
         ui.add(attackLabel, 1, 3);
         ui.add(new Label("Armor: "), 0, 4);
         ui.add(armorLabel, 1, 4);
-        ui.add(new Label("Inventory: "), 0, 5);
-        ui.add(inventoryLabel, 0, 6);
     }
 
 

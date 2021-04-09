@@ -4,8 +4,6 @@ import com.codecool.dungeoncrawl.engine.gui.LogPane;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Monster;
 
-import java.util.Locale;
-
 public class FightService {
 
     public static void fight(Actor player, Monster enemy){

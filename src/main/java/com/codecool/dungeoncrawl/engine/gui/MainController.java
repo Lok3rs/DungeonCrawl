@@ -6,6 +6,8 @@ import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
 import com.codecool.dungeoncrawl.engine.menu.GameOverMenu;
 import com.codecool.dungeoncrawl.engine.menu.MainMenu;
+import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Items.inventory.InventoryController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -22,7 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainController {
-    private GameMap map = MapLoader.loadMap(false);
+    private GameMap map = MapLoader.loadMap(false, "/map.txt");
     private final Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -38,6 +40,7 @@ public class MainController {
     private BorderPane borderPane;
     private InventoryController inventoryController;
     private boolean isInventoryOn = false;
+    private boolean cheatMode = false;
 
 
     public void run(Stage stage) {
@@ -68,10 +71,11 @@ public class MainController {
     }
 
     public Scene createScene(boolean cheatMode) {
+        this.cheatMode = cheatMode;
         ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
         this.borderPane = new BorderPane();
         borderPane.setCenter(canvas);
-        this.map = MapLoader.loadMap(cheatMode);
+        this.map = MapLoader.loadMap(cheatMode, "/map.txt");
         this.rightGridPane = new RightGridPane(map);
         this.logPane = new LogPane(map);
         this.keyboardEventHandler = new KeyboardEventHandler(this, map);
@@ -94,6 +98,10 @@ public class MainController {
         if (map.getPlayer().getHealth() > 0) map.refreshMap(context);
         else {
             gameOverMenu.handleMenu();
+        }
+        if(map.getPlayer().getCell().getCellType() == CellType.STAIRWAY){
+            this.map = MapLoader.loadMap(this.cheatMode, "/map2.txt");
+            this.keyboardEventHandler.setMap(this.map);
         }
         rightGridPane.refreshLabels();
     }

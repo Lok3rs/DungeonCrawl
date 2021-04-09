@@ -1,10 +1,9 @@
 package com.codecool.dungeoncrawl.logic.Items.inventory;
 
 import com.codecool.dungeoncrawl.logic.Items.Item;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.paint.Color;
+
 
 import java.util.ArrayList;
 

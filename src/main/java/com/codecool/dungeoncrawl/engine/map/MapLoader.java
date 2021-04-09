@@ -14,9 +14,9 @@ import java.util.Scanner;
 
 public class MapLoader {
     public static List<Monster> monsters = new ArrayList<>();
-    public static GameMap loadMap(boolean cheatMode) {
+    public static GameMap loadMap(boolean cheatMode, String name) {
 
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+        InputStream is = MapLoader.class.getResourceAsStream(name);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
@@ -69,6 +69,11 @@ public class MapLoader {
                             Key keyTwo = new Key(cell, 20, 9, "Silver Key");
                             keys.add(keyTwo);
                         }
+                        case 'F' -> {
+                            cell.setType(CellType.FLOOR);
+                            Key keyThree = new Key(cell,20,8, "Diamond Key");
+                            keys.add(keyThree);
+                        }
                         case '?' -> {
                             cell.setType(CellType.COBWEB);
                         }
@@ -77,6 +82,9 @@ public class MapLoader {
                         }
                         case 'V' -> {
                             cell.setType(CellType.SPIKES);
+                        }
+                        case 'D' -> {
+                            cell.setType(CellType.STAIRWAY);
                         }
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
 
