@@ -10,7 +10,7 @@ public class Ghost extends Monster {
     public Ghost(Cell cell) {
         super(cell);
         this.health = 20;
-        this.attack = 50;
+        this.attack = 13;
         this.armor = 7;
         this.exp = 20;
     }
