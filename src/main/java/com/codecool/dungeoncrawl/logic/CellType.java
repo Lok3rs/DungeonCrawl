@@ -9,7 +9,8 @@ public enum CellType {
     SPIKES("spikes"),
     ROCK("rock"),
     COBWEB("cobweb"),
-    STAIRWAY("stairway");
+    STAIRWAY("stairway"),
+    WATER("water");
 
 
     private final String tileName;
@@ -25,7 +26,7 @@ public enum CellType {
     public boolean isWalkable(){
         return switch (this) {
             case EMPTY, FLOOR, OPENDOOR, SPIKES, STAIRWAY -> true;
-            case WALL, DOOR, ROCK, COBWEB -> false;
+            case WALL, DOOR, ROCK, COBWEB, WATER -> false;
         };
     }
 }

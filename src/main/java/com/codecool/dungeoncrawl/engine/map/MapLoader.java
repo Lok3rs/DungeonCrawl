@@ -35,6 +35,7 @@ public class MapLoader {
                         case ' ' -> cell.setType(CellType.EMPTY);
                         case '#' -> cell.setType(CellType.WALL);
                         case '.' -> cell.setType(CellType.FLOOR);
+                        case 'W' -> cell.setType(CellType.WATER);
                         case 's' -> {
                             cell.setType(CellType.FLOOR);
                             monsters.add(new Skeleton(cell));
@@ -68,11 +69,6 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             Key keyTwo = new Key(cell, 20, 9, "Silver Key");
                             keys.add(keyTwo);
-                        }
-                        case 'F' -> {
-                            cell.setType(CellType.FLOOR);
-                            Key keyThree = new Key(cell,20,8, "Diamond Key");
-                            keys.add(keyThree);
                         }
                         case '?' -> {
                             cell.setType(CellType.COBWEB);
