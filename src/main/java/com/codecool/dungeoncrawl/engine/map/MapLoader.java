@@ -6,10 +6,7 @@ import com.codecool.dungeoncrawl.logic.Items.Key;
 import com.codecool.dungeoncrawl.logic.Items.Potion;
 import com.codecool.dungeoncrawl.logic.Items.Sword;
 import com.codecool.dungeoncrawl.logic.actors.*;
-import com.codecool.dungeoncrawl.logic.actors.monsters.Ghost;
-import com.codecool.dungeoncrawl.logic.actors.monsters.Ghoul;
-import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
-import com.codecool.dungeoncrawl.logic.actors.monsters.Skeleton;
+import com.codecool.dungeoncrawl.logic.actors.monsters.*;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -81,6 +78,10 @@ public class MapLoader {
                         }
                         case 'V' -> {
                             cell.setType(CellType.SPIKES);
+                        }
+                        case 'S' -> {
+                            cell.setType(CellType.FLOOR);
+                            monsters.add(new Shaman(cell));
                         }
                         default -> throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
 
