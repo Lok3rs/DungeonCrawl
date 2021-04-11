@@ -55,11 +55,16 @@ public class MainMenu extends Menu{
         hb.setSpacing(10);
 
         Button exit = createExitButton();
+        exit.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00);"+
+                "-fx-background-radius: 30;" +
+                "-fx-background-insets: 0,1,2,3,0;" +
+                "-fx-text-fill: #654b00;" +
+                "-fx-padding: 10 20 10 20;");
 
         stackPane.getChildren().addAll(canvas, startGame, loadGame, exit, hb);
-        startGame.setTranslateY(-100);
+        startGame.setTranslateY(-120);
         loadGame.setTranslateY(-40);
-        hb.setTranslateY(240);
+        hb.setTranslateY(230);
         hb.setTranslateX(280);
 
     }

@@ -25,8 +25,8 @@ public enum CellType {
 
     public boolean isWalkable(){
         return switch (this) {
-            case EMPTY, FLOOR, OPENDOOR, SPIKES, STAIRWAY -> true;
-            case WALL, DOOR, ROCK, COBWEB, WATER -> false;
+            case FLOOR, OPENDOOR, SPIKES, STAIRWAY -> true;
+            case EMPTY, WALL, DOOR, ROCK, COBWEB, WATER -> false;
         };
     }
 }
