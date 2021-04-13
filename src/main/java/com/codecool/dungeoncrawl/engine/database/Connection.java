@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -54,6 +55,7 @@ public class Connection {
 
     private void createTables() {
         createItemsTable();
+        createPlayersTable();
     }
 
     private void executeCreateTableQuery(String tableName, Map<String, String> columns){
@@ -74,6 +76,27 @@ public class Connection {
         columns.put("id", "serial primary key");
         columns.put("name", "VARCHAR(255)");
         executeCreateTableQuery(tableName, columns);
+    }
+
+    private void createPlayersTable(){
+        String tableName = "players";
+        Map<String, String> columns = new LinkedHashMap<>();
+        columns.put("id", "serial primary key");
+        columns.put("name", "VARCHAR(255)");
+        columns.put("level", "int");
+        columns.put("health", "int");
+        columns.put("experience", "int");
+        columns.put("attack", "int");
+        columns.put("armor", "int");
+        columns.put("cheat_mode", "boolean");
+        columns.put("map", "int");
+        columns.put("y_coordinate", "int");
+        columns.put("x_coordinate", "int");
+        executeCreateTableQuery(tableName, columns);
+    }
+
+    private void createInventoryTable(){
+        
     }
 
 }
