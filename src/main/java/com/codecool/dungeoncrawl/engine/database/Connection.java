@@ -56,6 +56,8 @@ public class Connection {
     private void createTables() {
         createItemsTable();
         createPlayersTable();
+        createInventoryTable();
+        createMonstersTable();
     }
 
     private void executeCreateTableQuery(String tableName, Map<String, String> columns){
@@ -73,7 +75,7 @@ public class Connection {
     private void createItemsTable(){
         String tableName = "items";
         Map<String, String> columns = new LinkedHashMap<>();
-        columns.put("id", "serial primary key");
+        columns.put("item_id", "serial primary key");
         columns.put("name", "VARCHAR(255)");
         executeCreateTableQuery(tableName, columns);
     }
@@ -81,7 +83,7 @@ public class Connection {
     private void createPlayersTable(){
         String tableName = "players";
         Map<String, String> columns = new LinkedHashMap<>();
-        columns.put("id", "serial primary key");
+        columns.put("player_id", "serial primary key");
         columns.put("name", "VARCHAR(255)");
         columns.put("level", "int");
         columns.put("health", "int");
@@ -92,11 +94,39 @@ public class Connection {
         columns.put("map", "int");
         columns.put("y_coordinate", "int");
         columns.put("x_coordinate", "int");
+        columns.put("save_id", "serial");
+        columns.put("created_at", "TIMESTAMP NOT NULL DEFAULT NOW()");
         executeCreateTableQuery(tableName, columns);
     }
 
-    private void createInventoryTable(){
-        
+    private void createInventoryTable() {
+        String tableName = "inventory";
+        Map<String, String> columns = new LinkedHashMap<>();
+        columns.put("player_id", "int");
+        columns.put("item_id", "int");
+        executeCreateTableQuery(tableName, columns);
+        try{
+            ResultSet constraints = getResultSet("SELECT COUNT(*) FROM pg_catalog.pg_constraint WHERE conname='item_id';");
+            String alterQuery = "ALTER TABLE inventory ADD CONSTRAINT player_id FOREIGN KEY(player_id) REFERENCES players(player_id);" +
+                    "ALTER TABLE inventory ADD CONSTRAINT item_id FOREIGN KEY(item_id) REFERENCES items(item_id)";
+            constraints.next();
+            if (constraints.getInt("count") == 0) executeQuery(alterQuery);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void createMonstersTable(){
+        String tableName = "monsters";
+        Map<String, String> columns = new LinkedHashMap<>();
+        columns.put("monster_id", "serial primary key");
+        columns.put("name", "VARCHAR(255)");
+        executeCreateTableQuery(tableName, columns);
+    }
+
+    private void createSavedMonstersTable(){
+        String name = "saved_monsters";
+
     }
 
 }
