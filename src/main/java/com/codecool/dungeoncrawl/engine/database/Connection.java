@@ -58,6 +58,7 @@ public class Connection {
         createPlayersTable();
         createInventoryTable();
         createMonstersTable();
+        createSavedMonstersTable();
     }
 
     private void executeCreateTableQuery(String tableName, Map<String, String> columns){
@@ -125,8 +126,24 @@ public class Connection {
     }
 
     private void createSavedMonstersTable(){
-        String name = "saved_monsters";
-
+        String tableName = "saved_monsters";
+        Map<String, String> columns = new LinkedHashMap<>();
+        columns.put("monster_id", "int");
+        columns.put("player_id", "int");
+        columns.put("health", "int");
+        columns.put("map", "int");
+        columns.put("y_coordinate", "int");
+        columns.put("x_coordinate", "int");
+        executeCreateTableQuery(tableName, columns);
+        try{
+            ResultSet constraints = getResultSet("SELECT COUNT(*) FROM pg_catalog.pg_constraint WHERE conname='monster_id';");
+            String alterQuery = "ALTER TABLE saved_monsters ADD CONSTRAINT player_id FOREIGN KEY(player_id) REFERENCES players(player_id);" +
+                    "ALTER TABLE saved_monsters ADD CONSTRAINT monster_id FOREIGN KEY(monster_id) REFERENCES monsters(monster_id)";
+            constraints.next();
+            if (constraints.getInt("count") == 0) executeQuery(alterQuery);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
 }
