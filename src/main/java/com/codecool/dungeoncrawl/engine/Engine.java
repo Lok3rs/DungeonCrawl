@@ -1,4 +1,5 @@
 package com.codecool.dungeoncrawl.engine;
+import com.codecool.dungeoncrawl.engine.database.Connection;
 import com.codecool.dungeoncrawl.engine.gui.MainController;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ public class Engine extends Application {
     @Override
     public void start(Stage primaryStage) {
         mainController.run(primaryStage);
+        Connection con = new Connection();
     }
 
 }
