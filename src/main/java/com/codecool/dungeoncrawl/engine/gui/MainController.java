@@ -76,7 +76,7 @@ public class MainController {
         this.borderPane = new BorderPane();
         borderPane.setCenter(canvas);
         this.map = MapLoader.loadMap(cheatMode, "/map.txt");
-        this.rightGridPane = new RightGridPane(map);
+        this.rightGridPane = new RightGridPane(map, stage);
         this.logPane = new LogPane(map);
         this.keyboardEventHandler = new KeyboardEventHandler(this, map);
         rightGridPane.setGridPane(borderPane);
