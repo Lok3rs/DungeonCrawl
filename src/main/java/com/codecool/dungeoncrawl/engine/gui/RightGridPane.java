@@ -80,13 +80,10 @@ public class RightGridPane extends BorderGridPane {
         Rectangle rect = new Rectangle(50, 50, 50, 50);
         rect.setFill(Color.CORAL);
 
-        TranslateTransition animation = createAnimation(rect);
-
         Pane pane = new Pane(rect);
         pane.setMinSize(600, 150);
 
         pause.setOnAction(e -> {
-            animation.pause();
             parentPane.setEffect(new GaussianBlur());
 
             VBox pauseRoot = new VBox(5);
@@ -106,7 +103,6 @@ public class RightGridPane extends BorderGridPane {
 
             resume.setOnAction(event -> {
                 parentPane.setEffect(null);
-                animation.play();
                 popupStage.hide();
             });
 
@@ -114,15 +110,7 @@ public class RightGridPane extends BorderGridPane {
         });
 
     }
-
-    private TranslateTransition createAnimation(Rectangle rect) {
-        TranslateTransition animation = new TranslateTransition(Duration.seconds(1), rect);
-        animation.setByX(400);
-        animation.setCycleCount(Animation.INDEFINITE);
-        animation.setAutoReverse(true);
-        animation.play();
-        return animation;
-    }
+    
 
 
     private void addLabels() {
