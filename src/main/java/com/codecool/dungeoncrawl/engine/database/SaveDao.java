@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 import java.util.List;
 
 public interface SaveDao {
+    void saveGame();
     List<Monster> getMonsters(GameMap map);
     Player getPlayer(GameMap map);
     Integer getMapNumber();

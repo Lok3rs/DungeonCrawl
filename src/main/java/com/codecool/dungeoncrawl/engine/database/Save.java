@@ -9,6 +9,11 @@ import java.util.List;
 
 public class Save implements SaveDao{
     @Override
+    public void saveGame() {
+        
+    }
+
+    @Override
     public List<Monster> getMonsters(GameMap map) {
         return null;
     }
