@@ -67,7 +67,7 @@ public abstract class Monster extends Actor {
         }
     }
 
-    protected void startMoving(){
+    public void startMoving(){
         timeline.setCycleCount( Animation.INDEFINITE );
         timeline.play();
     }

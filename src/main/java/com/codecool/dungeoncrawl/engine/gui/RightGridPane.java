@@ -1,10 +1,12 @@
 package com.codecool.dungeoncrawl.engine.gui;
 
 import com.codecool.dungeoncrawl.engine.map.GameMap;
+import com.codecool.dungeoncrawl.engine.map.MapLoader;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.Items.ItemService;
 import com.codecool.dungeoncrawl.logic.Items.Key;
+import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
@@ -100,17 +102,23 @@ public class RightGridPane extends BorderGridPane {
             popupStage.initModality(Modality.APPLICATION_MODAL);
             popupStage.setScene(new Scene(pauseRoot, Color.TRANSPARENT));
 
+            for (Monster monster : MapLoader.monsters) {
+                monster.stopMoving();
+            }
 
             resume.setOnAction(event -> {
                 parentPane.setEffect(null);
                 popupStage.hide();
+                for (Monster monster : MapLoader.monsters) {
+                    monster.startMoving();
+                }
             });
 
             popupStage.show();
         });
 
     }
-    
+
 
 
     private void addLabels() {
