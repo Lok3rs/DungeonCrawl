@@ -16,7 +16,6 @@ public class Engine extends Application {
     @Override
     public void start(Stage primaryStage) {
         mainController.run(primaryStage);
-        Connection con = new Connection();
     }
 
 }

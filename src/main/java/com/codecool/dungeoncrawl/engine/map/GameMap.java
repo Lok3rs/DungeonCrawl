@@ -53,7 +53,7 @@ public class GameMap {
         return player;
     }
 
-    public Item getItem(){
+    public Item getItem(){ //nie uzywane
         return item;
     }
 

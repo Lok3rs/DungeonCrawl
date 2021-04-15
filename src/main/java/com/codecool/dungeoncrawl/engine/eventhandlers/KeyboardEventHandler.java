@@ -23,6 +23,7 @@ public class KeyboardEventHandler {
             case A -> map.getPlayer().move(-1, 0);
             case D -> map.getPlayer().move(1, 0);
             case I -> mainController.switchInventory();
+            case M -> mainController.save();
         }
         mainController.refresh();
     }

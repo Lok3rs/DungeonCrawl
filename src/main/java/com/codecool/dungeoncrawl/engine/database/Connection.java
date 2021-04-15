@@ -1,6 +1,8 @@
 package com.codecool.dungeoncrawl.engine.database;
 
 
+import com.codecool.dungeoncrawl.logic.actors.Player;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +10,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Connection {
 
@@ -70,6 +73,14 @@ public class Connection {
             counter++;
         }
         String createQuery = String.format("CREATE TABLE IF NOT EXISTS %s (%s)", tableName, columnsAsStrings);
+        executeQuery(createQuery);
+    }
+
+    private void executeInsertIntegersQuery(String tableName, Map<String, String> columns) {
+        String columnsAsString = String.join(", ", columns.keySet());
+        String valuesAsString = String.join(", ", columns.values());
+        String createQuery = String.format("INSERT INTO %s (%s) VALUES (%s)",
+                tableName, columnsAsString, valuesAsString);
         executeQuery(createQuery);
     }
 
@@ -144,6 +155,20 @@ public class Connection {
         } catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public void savePlayer(Player player) {
+        HashMap<String, String> playerAsMap = new HashMap<>();
+        playerAsMap.put("level", String.valueOf(player.getLevel()));
+        playerAsMap.put("health", String.valueOf(player.getHealth()));
+        playerAsMap.put("experience", String.valueOf(player.getCurrentExp()));
+        playerAsMap.put("attack", String.valueOf(player.getAttack()));
+        playerAsMap.put("armor", String.valueOf(player.getArmor()));
+        playerAsMap.put("cheat_mode", "false");
+        playerAsMap.put("map", "1");
+        playerAsMap.put("x_coordinate", String.valueOf(player.getX()));
+        playerAsMap.put("y_coordinate", String.valueOf(player.getY()));
+        executeInsertIntegersQuery("players", playerAsMap);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.engine.gui;
 
 import com.codecool.dungeoncrawl.Tiles;
+import com.codecool.dungeoncrawl.engine.database.Connection;
 import com.codecool.dungeoncrawl.engine.eventhandlers.KeyboardEventHandler;
 import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
@@ -8,6 +9,7 @@ import com.codecool.dungeoncrawl.engine.menu.GameOverMenu;
 import com.codecool.dungeoncrawl.engine.menu.MainMenu;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
+import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.Items.inventory.InventoryController;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -41,6 +43,7 @@ public class MainController {
     private InventoryController inventoryController;
     private boolean isInventoryOn = false;
     private boolean cheatMode = false;
+    private final Connection con = new Connection();
 
 
     public void run(Stage stage) {
@@ -142,4 +145,12 @@ public class MainController {
         }
     }
 
+    public void save() {
+        con.savePlayer(map.getPlayer());
+
+//        for (Item item : map.getPlayer().getInventory()) {
+//            String query = "INSERT INTO items (name) VALUES ('" + item.getName() +"')";
+//            con.executeQuery(query);
+//        }
+    }
 }
