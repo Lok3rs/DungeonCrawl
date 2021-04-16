@@ -1,16 +1,14 @@
 package com.codecool.dungeoncrawl.engine.database;
 
 
+import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Connection {
 
@@ -169,6 +167,18 @@ public class Connection {
         playerAsMap.put("x_coordinate", String.valueOf(player.getX()));
         playerAsMap.put("y_coordinate", String.valueOf(player.getY()));
         executeInsertIntegersQuery("players", playerAsMap);
+    }
+
+    public void saveItemsWithID(){
+        String query = ("INSERT INTO items (name) VALUES ('Potion')");
+        executeQuery(query);
+        String querySword = ("INSERT INTO items (name) VALUES ('Sword')");
+        executeQuery(querySword);
+        String queryGoldKey = ("INSERT INTO items (name) VALUES ('Gold Key')");
+        executeQuery(queryGoldKey);
+        String querySilverKey = ("INSERT INTO items (name) VALUES ('Silver Key')");
+        executeQuery(querySilverKey);
+
     }
 
 }

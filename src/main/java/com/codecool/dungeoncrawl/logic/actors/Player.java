@@ -10,8 +10,6 @@ public class Player extends Actor {
     private int level;
     private int currentExp;
     private int expToNextLevel;
-
-
     private ArrayList<Item> inventory;
 
     public Player(Cell cell, boolean cheatMode) {

@@ -147,6 +147,7 @@ public class MainController {
 
     public void save() {
         con.savePlayer(map.getPlayer());
+        con.saveItemsWithID();
 
 //        for (Item item : map.getPlayer().getInventory()) {
 //            String query = "INSERT INTO items (name) VALUES ('" + item.getName() +"')";
