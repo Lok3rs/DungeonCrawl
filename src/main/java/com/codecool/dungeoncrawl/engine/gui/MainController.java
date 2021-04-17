@@ -25,6 +25,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class MainController {
     private GameMap map = MapLoader.loadMap(false, "/map.txt");
     private final Canvas canvas = new Canvas(
@@ -79,6 +82,7 @@ public class MainController {
         this.borderPane = new BorderPane();
         borderPane.setCenter(canvas);
         this.map = MapLoader.loadMap(cheatMode, "/map.txt");
+        this.savePlayer();
         this.rightGridPane = new RightGridPane(map, stage);
         this.logPane = new LogPane(map);
         this.keyboardEventHandler = new KeyboardEventHandler(this, map);
@@ -145,13 +149,19 @@ public class MainController {
         }
     }
 
-    public void save() {
+    public void savePlayer() {
         con.savePlayer(map.getPlayer());
-        con.saveItemsWithID();
+        ResultSet resultSet = con.getResultSet("select * from players ORDER BY player_id desc LIMIT 1");
+        try {
+            resultSet.next();
+            int player_id = resultSet.getInt("player_id");
+            map.getPlayer().setPlayerId(player_id);
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        }
+    }
 
-//        for (Item item : map.getPlayer().getInventory()) {
-//            String query = "INSERT INTO items (name) VALUES ('" + item.getName() +"')";
-//            con.executeQuery(query);
-//        }
+    public void save() {
+        con.updatePlayer(map.getPlayer());
     }
 }

@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.Items.Item;
 import java.util.ArrayList;
 
 public class Player extends Actor {
+    private int playerId;
     private int level;
     private int currentExp;
     private int expToNextLevel;
@@ -88,4 +89,11 @@ public class Player extends Actor {
         return expToNextLevel;
     }
 
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
+    }
 }

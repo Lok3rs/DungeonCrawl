@@ -82,6 +82,17 @@ public class Connection {
         executeQuery(createQuery);
     }
 
+    private void executeUpdateQuery(String tableName, Map<String, String> columns, String selectorKey, String selectorValue) {
+        Set<String> changes = new HashSet<String>();
+        for (String key : columns.keySet()) {
+            changes.add(key + "=" + columns.get(key));
+        }
+        String changesAsString = String.join(", ", changes);
+        String createQuery = String.format("UPDATE %s SET %s WHERE %s=%s",
+                tableName, changesAsString, selectorKey, selectorValue);
+        executeQuery(createQuery);
+    }
+
     private void createItemsTable(){
         String tableName = "items";
         Map<String, String> columns = new LinkedHashMap<>();
@@ -156,6 +167,16 @@ public class Connection {
     }
 
     public void savePlayer(Player player) {
+        HashMap<String, String> playerAsMap = playerToMap(player);
+        executeInsertIntegersQuery("players", playerAsMap);
+    }
+
+    public void updatePlayer(Player player) {
+        HashMap<String, String> playerAsMap = playerToMap(player);
+        executeUpdateQuery("players", playerAsMap, "player_id", String.valueOf(player.getPlayerId()));
+    }
+
+    private HashMap<String, String> playerToMap(Player player) {
         HashMap<String, String> playerAsMap = new HashMap<>();
         playerAsMap.put("level", String.valueOf(player.getLevel()));
         playerAsMap.put("health", String.valueOf(player.getHealth()));
@@ -166,7 +187,7 @@ public class Connection {
         playerAsMap.put("map", "1");
         playerAsMap.put("x_coordinate", String.valueOf(player.getX()));
         playerAsMap.put("y_coordinate", String.valueOf(player.getY()));
-        executeInsertIntegersQuery("players", playerAsMap);
+        return playerAsMap;
     }
 
     public void saveItemsWithID(){
