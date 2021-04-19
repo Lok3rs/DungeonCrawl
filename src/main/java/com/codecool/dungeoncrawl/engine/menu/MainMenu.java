@@ -31,7 +31,7 @@ public class MainMenu extends Menu{
                 "-fx-background-insets: 0;" +
                 "-fx-padding: 10 20 10 20;" +
                 "-fx-text-fill: black;");
-        startGame.setOnMouseClicked(mouseEvent -> startNewGame());
+        startGame.setOnMouseClicked(mouseEvent -> startNewGame(textField));
 
         Button loadGame = new Button();
         loadGame.setStyle("-fx-background-color:" +
@@ -77,10 +77,13 @@ public class MainMenu extends Menu{
         context.fillText("MAIN MENU", 360, 170);
     }
 
-    private void startNewGame(){
-        stage.hide();
-        stage.setScene(mainController.createScene(checkIfCheat()));
-        stage.show();
+    private void startNewGame(TextField textField){
+        if (textField.getText().length() > 0){
+            stage.hide();
+            stage.setScene(mainController.createScene(checkIfCheat(), textField.getText()));
+            stage.show();
+        }
+
     }
 
     private boolean checkIfCheat(){
