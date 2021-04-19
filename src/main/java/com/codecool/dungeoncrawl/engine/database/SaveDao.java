@@ -9,9 +9,12 @@ import java.util.List;
 
 public interface SaveDao {
     void saveGame();
-    List<Monster> getMonsters(GameMap map);
-    Player getPlayer(GameMap map);
-    Integer getMapNumber();
-    List<Item> getMapItems(GameMap map);
-    List<Item> getInventory(Player player);
+    void savePlayer();
+    void saveInventory();
+    void saveMapWithMonsters();
+    List<Monster> getMonsters();
+    Player getPlayer();
+    String getMapName();
+    List<Item> getMapItems();
+    List<Item> getInventory();
 }

@@ -5,9 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Connection {
 
@@ -123,6 +121,7 @@ public class Connection {
         columns.put("monster_id", "serial primary key");
         columns.put("name", "VARCHAR(255)");
         executeCreateTableQuery(tableName, columns);
+        insertMonsters();
     }
 
     private void createSavedMonstersTable(){
@@ -144,6 +143,25 @@ public class Connection {
         } catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    private void insertMonsters(){
+        ResultSet alreadyExistingMonsters = getResultSet("SELECT * FROM monsters;");
+        List<String> monstersNames = Arrays.asList("Skeleton", "Ghost", "Ghoul", "Shaman");
+        String insertQuery;
+        try{
+            if (!alreadyExistingMonsters.next()){
+                for (String monsterName : monstersNames) {
+                    insertQuery = String.format("INSERT INTO monsters (name) VALUES ('%s') ", monsterName);
+                    executeQuery(insertQuery);
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("Something went wrong while inserting monsters!");
+            e.printStackTrace();
+        }
+
+
     }
 
 }

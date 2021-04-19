@@ -13,10 +13,12 @@ public class GameMap {
     private final Cell[][] cells;
     private Player player;
     private Item item;
+    private final String name;
 
-    public GameMap(int width, int height, CellType defaultCellType) {
+    public GameMap(int width, int height, CellType defaultCellType, String name) {
         this.width = width;
         this.height = height;
+        this.name = name;
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -63,6 +65,10 @@ public class GameMap {
 
     public int getHeight() {
         return height;
+    }
+
+    public String getName(){
+        return this.name;
     }
 
 }
