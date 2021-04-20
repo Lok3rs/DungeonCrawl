@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class MapLoader {
     public static List<Monster> monsters = new ArrayList<>();
-    public static GameMap loadMap(boolean cheatMode, String name) {
+    public static GameMap loadMap(boolean cheatMode, String name, String playerName) {
 
         InputStream is = MapLoader.class.getResourceAsStream(name);
         Scanner scanner = new Scanner(is);
@@ -26,7 +26,7 @@ public class MapLoader {
 
         scanner.nextLine(); // empty line
 
-        GameMap map = new GameMap(width, height, CellType.EMPTY);
+        GameMap map = new GameMap(width, height, CellType.EMPTY, name);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
             for (int x = 0; x < width; x++) {
@@ -51,7 +51,7 @@ public class MapLoader {
                         }
                         case '@' -> {
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell, cheatMode));
+                            map.setPlayer(new Player(cell, cheatMode, playerName));
                         }
                         case '%' -> {
                             cell.setType(CellType.FLOOR);

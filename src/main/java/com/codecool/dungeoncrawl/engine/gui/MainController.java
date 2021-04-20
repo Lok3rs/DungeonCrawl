@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainController {
-    private GameMap map = MapLoader.loadMap(false, "/map.txt");
+    private GameMap map = MapLoader.loadMap(false, "/map.txt", "random");
     private final Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -70,12 +70,12 @@ public class MainController {
         return this.stage;
     }
 
-    public Scene createScene(boolean cheatMode) {
+    public Scene createScene(boolean cheatMode, String playerName) {
         this.cheatMode = cheatMode;
         ImageCursor cursor = new ImageCursor(new Image("/cursor.png"));
         this.borderPane = new BorderPane();
         borderPane.setCenter(canvas);
-        this.map = MapLoader.loadMap(cheatMode, "/map.txt");
+        this.map = MapLoader.loadMap(cheatMode, "/map.txt", playerName);
         this.rightGridPane = new RightGridPane(map, stage);
         this.logPane = new LogPane(map);
         this.keyboardEventHandler = new KeyboardEventHandler(this, map);
@@ -100,7 +100,7 @@ public class MainController {
             gameOverMenu.handleMenu();
         }
         if(map.getPlayer().getCell().getCellType() == CellType.STAIRWAY){
-            this.map = MapLoader.loadMap(this.cheatMode, "/map2.txt");
+            this.map = MapLoader.loadMap(this.cheatMode, "/map2.txt", map.getPlayer().getName());
             this.keyboardEventHandler.setMap(this.map);
         }
         rightGridPane.refreshLabels();

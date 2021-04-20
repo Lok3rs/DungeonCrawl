@@ -5,9 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Connection {
 
@@ -79,6 +77,7 @@ public class Connection {
         columns.put("item_id", "serial primary key");
         columns.put("name", "VARCHAR(255)");
         executeCreateTableQuery(tableName, columns);
+        insertItems();
     }
 
     private void createPlayersTable(){
@@ -123,6 +122,7 @@ public class Connection {
         columns.put("monster_id", "serial primary key");
         columns.put("name", "VARCHAR(255)");
         executeCreateTableQuery(tableName, columns);
+        insertMonsters();
     }
 
     private void createSavedMonstersTable(){
@@ -142,6 +142,32 @@ public class Connection {
             constraints.next();
             if (constraints.getInt("count") == 0) executeQuery(alterQuery);
         } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void insertMonsters(){
+        List<String> monstersNames = Arrays.asList("Skeleton", "Ghost", "Ghoul", "Shaman");
+        insertValuesWithName(monstersNames, "monsters");
+    }
+
+    private void insertItems(){
+        List<String> itemsNames = Arrays.asList("Silver key", "Golden key", "Sword", "Potion");
+        insertValuesWithName(itemsNames, "items");
+    }
+
+    private void insertValuesWithName(List<String> values, String tableName){
+        ResultSet alreadyExistingValues = getResultSet(String.format("SELECT * FROM %s;", tableName));
+        String insertQuery;
+        try{
+            if (!alreadyExistingValues.next()){
+                for (String value : values) {
+                    insertQuery = String.format("INSERT INTO %s (name) VALUES ('%s') ", tableName, value);
+                    executeQuery(insertQuery);
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("Something went wrong while inserting values!");
             e.printStackTrace();
         }
     }

@@ -11,13 +11,15 @@ public class Player extends Actor {
     private int currentExp;
     private int expToNextLevel;
 
+    private final String name;
 
     private ArrayList<Item> inventory;
 
-    public Player(Cell cell, boolean cheatMode) {
+    public Player(Cell cell, boolean cheatMode, String name) {
         super(cell);
         createPlayer();
         this.cheatMode = cheatMode;
+        this.name = name;
     }
 
     public void createPlayer() {
@@ -65,6 +67,10 @@ public class Player extends Actor {
         if (currentExp >= expToNextLevel) {
             levelUp();
         }
+    }
+
+    public String getName(){
+        return this.name;
     }
 
     private void levelUp() {
