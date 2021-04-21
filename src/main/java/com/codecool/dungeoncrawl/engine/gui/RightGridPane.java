@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.engine.gui;
 
+import com.codecool.dungeoncrawl.engine.database.Save;
 import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
 import com.codecool.dungeoncrawl.logic.CellType;
@@ -94,8 +95,10 @@ public class RightGridPane extends BorderGridPane {
             pauseRoot.setAlignment(Pos.CENTER);
             pauseRoot.setPadding(new Insets(20));
 
+            Button saveGame = new Button("Save");
             Button resume = new Button("Resume");
-            pauseRoot.getChildren().add(resume);
+            Button exitButton = new Button("Exit");
+            pauseRoot.getChildren().addAll(resume, saveGame, exitButton);
 
             Stage popupStage = new Stage(StageStyle.TRANSPARENT);
             popupStage.initOwner(primaryStage);
@@ -112,6 +115,13 @@ public class RightGridPane extends BorderGridPane {
                 for (Monster monster : MapLoader.monsters) {
                     monster.startMoving();
                 }
+            });
+
+            exitButton.setOnAction(event -> primaryStage.close());
+
+            saveGame.setOnAction(event -> {
+                Save save = new Save(map);
+                save.saveGame();
             });
 
             popupStage.show();

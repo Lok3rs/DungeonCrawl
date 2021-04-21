@@ -91,7 +91,7 @@ public class Connection {
         columns.put("attack", "int");
         columns.put("armor", "int");
         columns.put("cheat_mode", "boolean");
-        columns.put("map", "int");
+        columns.put("map", "VARCHAR(255)");
         columns.put("y_coordinate", "int");
         columns.put("x_coordinate", "int");
         columns.put("save_id", "serial");

@@ -33,10 +33,11 @@ public class Save implements SaveDao{
         String query = String.format("INSERT INTO players " +
                 "(name, level, health, experience, attack, armor, cheat_mode, map, y_coordinate, x_coordinate)" +
                 "VALUES" +
-                "(%s, %d, %d, %d, %d, %d, %d, %s, %d, %d)",
+                "('%s', %d, %d, %d, %d, %d, %b, '%s', %d, %d)",
                 player.getName(), player.getLevel(), player.getHealth(), player.getCurrentExp(), player.getAttack(),
-                player.getArmor(), player.isCheater() ? 1 : 0, map.getName(), player.getCell().getY(), player.getCell().getX());
+                player.getArmor(), player.isCheater(), map.getName(), player.getCell().getY(), player.getCell().getX());
         conn.executeQuery(query);
+
     }
 
     @Override
@@ -46,23 +47,32 @@ public class Save implements SaveDao{
 
     @Override
     public void saveMonsters() {
-        String queryForPlayer = String.format("SELECT * FROM player WHERE name='%s' AND y_coordinate=%d",
+        String queryForPlayer = String.format("SELECT * FROM players WHERE name='%s' AND y_coordinate=%d",
                 player.getName(), player.getCell().getY());
         ResultSet foundPlayer = conn.getResultSet(queryForPlayer);
+//        try{
+//            foundPlayer.next();
+//        } catch (SQLException e){
+//            System.out.println("Error occurred while looking for player in Save.saveMonsters");
+//            e.printStackTrace();
+//        }
+
 
         for (Monster monster : MapLoader.monsters) {
             ResultSet monstersSet = conn.getResultSet("SELECT * FROM monsters");
             int currentMonsterId = 0;
             try{
                 while(monstersSet.next()){
-                    if (monstersSet.getString("name").toLowerCase().equals(monster.getTileName().toLowerCase())){
+                    if (monstersSet.getString("name").equalsIgnoreCase(monster.getTileName())){
                         currentMonsterId = monstersSet.getInt("monster_id");
                     }
                 }
                 String insertMonsterQuery = String.format(
                         "INSERT INTO saved_monsters (monster_id, player_id, health, map, y_coordinate, x_coordinate)" +
                                 "VALUES(%d, %d, %d, %s, %d, %d)",
-                        currentMonsterId, foundPlayer.getInt("player_id"), monster.getHealth(),
+                        currentMonsterId,
+                        foundPlayer.getInt("player_id"),
+                        monster.getHealth(),
                         map.getName(), monster.getCell().getY(), monster.getCell().getX());
                 conn.executeQuery(insertMonsterQuery);
             } catch(SQLException e){

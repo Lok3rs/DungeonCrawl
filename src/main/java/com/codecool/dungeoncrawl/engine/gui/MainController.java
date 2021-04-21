@@ -51,8 +51,6 @@ public class MainController {
         stage.setTitle("Dungeon Crawl");
     }
 
-
-
     public KeyboardEventHandler getKeyboardEventHandler() {
         return this.keyboardEventHandler;
     }
