@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -46,13 +47,12 @@ public class MainMenu extends Menu{
                 "-fx-padding: 10 20 10 20;");
         loadGame.setText("Load saved game");
 
+        loadGame.setOnMouseClicked(e -> loadGameScreen());
+
         Label label1 = new Label("Name:");
         textField = new TextField ();
-        HBox hb = new HBox();
-
-
-        hb.getChildren().addAll(label1, textField);
-        hb.setSpacing(10);
+        textField.setStyle("-fx-max-width: 150");
+        textField.setPromptText("Nick");
 
         Button exit = createExitButton();
         exit.setStyle("-fx-background-color: linear-gradient(#ff5400, #be1d00);"+
@@ -60,12 +60,12 @@ public class MainMenu extends Menu{
                 "-fx-background-insets: 0,1,2,3,0;" +
                 "-fx-text-fill: #654b00;" +
                 "-fx-padding: 10 20 10 20;");
+        exit.setOnAction(event -> stage.close());
 
-        stackPane.getChildren().addAll(canvas, startGame, loadGame, exit, hb);
+        stackPane.getChildren().addAll(canvas, startGame, loadGame, exit, textField);
         startGame.setTranslateY(-120);
         loadGame.setTranslateY(-40);
-        hb.setTranslateY(230);
-        hb.setTranslateX(280);
+        textField.setTranslateY(-80);
 
     }
 
@@ -88,6 +88,15 @@ public class MainMenu extends Menu{
 
     private boolean checkIfCheat(){
         return textField.getText().equals("Dawid") || textField.getText().equals("Gabriela");
+    }
+
+    private void loadGameScreen(){
+        BorderPane borderPane = new BorderPane();
+        stage.hide();
+        borderPane.setCenter(canvas);
+        Scene scene = new Scene(borderPane);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

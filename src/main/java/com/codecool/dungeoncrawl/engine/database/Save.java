@@ -26,6 +26,7 @@ public class Save implements SaveDao{
     public void saveGame() {
         savePlayer();
         saveMonsters();
+        saveInventory();
     }
 
     @Override
