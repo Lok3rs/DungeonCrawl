@@ -50,8 +50,6 @@ public class Save implements SaveDao{
         String queryForPlayer = String.format("SELECT * FROM players WHERE name='%s'",
                 player.getName());
 
-
-
         for (Monster monster : MapLoader.monsters) {
             ResultSet monstersSet = conn.getResultSet("SELECT * FROM monsters");
             int currentMonsterId = 0;
@@ -80,28 +78,4 @@ public class Save implements SaveDao{
         }
     }
 
-    @Override
-    public List<Monster> getMonsters() {
-        return MapLoader.monsters;
-    }
-
-    @Override
-    public String getMapName() {
-        return map.getName();
-    }
-
-    @Override
-    public Player getPlayer() {
-        return null;
-    }
-
-    @Override
-    public List<Item> getMapItems() {
-        return null;
-    }
-
-    @Override
-    public List<Item> getInventory() {
-        return null;
-    }
 }
