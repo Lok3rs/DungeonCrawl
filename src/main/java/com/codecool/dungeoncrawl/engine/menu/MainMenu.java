@@ -93,6 +93,11 @@ public class MainMenu extends Menu{
     private void loadGameScreen(){
         BorderPane borderPane = new BorderPane();
         stage.hide();
+        context.clearRect(0.0, 0.0, 700.0, 700.0);
+        context.setFill(Color.BLACK);
+        context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        context.setFill(Color.RED);
+        context.fillText("SAVED GAMES", 360, 170);
         borderPane.setCenter(canvas);
         Scene scene = new Scene(borderPane);
         stage.setScene(scene);
