@@ -11,7 +11,7 @@ public interface SaveDao {
     void saveGame();
     void savePlayer();
     void saveInventory();
-    void saveMapWithMonsters();
+    void saveMonsters();
     List<Monster> getMonsters();
     Player getPlayer();
     String getMapName();

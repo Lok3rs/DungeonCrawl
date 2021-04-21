@@ -6,7 +6,10 @@ import com.codecool.dungeoncrawl.logic.Items.Item;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.monsters.Monster;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 
 public class Save implements SaveDao{
 
@@ -22,6 +25,7 @@ public class Save implements SaveDao{
     @Override
     public void saveGame() {
         savePlayer();
+        saveMonsters();
     }
 
     @Override
@@ -41,8 +45,32 @@ public class Save implements SaveDao{
     }
 
     @Override
-    public void saveMapWithMonsters() {
-        
+    public void saveMonsters() {
+        String queryForPlayer = String.format("SELECT * FROM player WHERE name='%s' AND y_coordinate=%d",
+                player.getName(), player.getCell().getY());
+        ResultSet foundPlayer = conn.getResultSet(queryForPlayer);
+
+        for (Monster monster : MapLoader.monsters) {
+            ResultSet monstersSet = conn.getResultSet("SELECT * FROM monsters");
+            int currentMonsterId = 0;
+            try{
+                while(monstersSet.next()){
+                    if (monstersSet.getString("name").toLowerCase().equals(monster.getTileName().toLowerCase())){
+                        currentMonsterId = monstersSet.getInt("monster_id");
+                    }
+                }
+                String insertMonsterQuery = String.format(
+                        "INSERT INTO saved_monsters (monster_id, player_id, health, map, y_coordinate, x_coordinate)" +
+                                "VALUES(%d, %d, %d, %s, %d, %d)",
+                        currentMonsterId, foundPlayer.getInt("player_id"), monster.getHealth(),
+                        map.getName(), monster.getCell().getY(), monster.getCell().getX());
+                conn.executeQuery(insertMonsterQuery);
+            } catch(SQLException e){
+                System.out.println("Error while looping through monsterSet in Save.saveMonsters method.");
+                e.printStackTrace();
+            }
+
+        }
     }
 
     @Override
