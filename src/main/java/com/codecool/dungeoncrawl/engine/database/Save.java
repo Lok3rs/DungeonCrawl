@@ -47,15 +47,9 @@ public class Save implements SaveDao{
 
     @Override
     public void saveMonsters() {
-        String queryForPlayer = String.format("SELECT * FROM players WHERE name='%s' AND y_coordinate=%d",
-                player.getName(), player.getCell().getY());
-        ResultSet foundPlayer = conn.getResultSet(queryForPlayer);
-//        try{
-//            foundPlayer.next();
-//        } catch (SQLException e){
-//            System.out.println("Error occurred while looking for player in Save.saveMonsters");
-//            e.printStackTrace();
-//        }
+        String queryForPlayer = String.format("SELECT * FROM players WHERE name='%s'",
+                player.getName());
+
 
 
         for (Monster monster : MapLoader.monsters) {
@@ -67,10 +61,13 @@ public class Save implements SaveDao{
                         currentMonsterId = monstersSet.getInt("monster_id");
                     }
                 }
+                ResultSet foundPlayer = conn.getResultSet(queryForPlayer);
+                foundPlayer.next();
                 String insertMonsterQuery = String.format(
                         "INSERT INTO saved_monsters (monster_id, player_id, health, map, y_coordinate, x_coordinate)" +
-                                "VALUES(%d, %d, %d, %s, %d, %d)",
+                                "VALUES(%d, %d, %d, '%s', %d, %d)",
                         currentMonsterId,
+
                         foundPlayer.getInt("player_id"),
                         monster.getHealth(),
                         map.getName(), monster.getCell().getY(), monster.getCell().getX());

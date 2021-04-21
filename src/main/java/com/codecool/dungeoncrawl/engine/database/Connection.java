@@ -131,7 +131,7 @@ public class Connection {
         columns.put("monster_id", "int");
         columns.put("player_id", "int");
         columns.put("health", "int");
-        columns.put("map", "int");
+        columns.put("map", "VARCHAR(255)");
         columns.put("y_coordinate", "int");
         columns.put("x_coordinate", "int");
         executeCreateTableQuery(tableName, columns);
