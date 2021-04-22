@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
-public class Connection {
+public class Connection implements SaveDao {
 
     Map<String, String> env = System.getenv();
 
@@ -37,7 +37,7 @@ public class Connection {
         createTables();
     }
 
-    public void executeQuery(String query) {
+    private void executeQuery(String query) {
         try {
             stat.execute(query);
         } catch (SQLException e) {
@@ -45,7 +45,7 @@ public class Connection {
         }
     }
 
-    public ResultSet getResultSet(String query) {
+    private ResultSet getResultSet(String query) {
         try {
             return stat.executeQuery(query);
         } catch (SQLException e) {
@@ -60,6 +60,7 @@ public class Connection {
         createInventoryTable();
         createMonstersTable();
         createSavedMonstersTable();
+        saveItemsWithID();
     }
 
     private void executeCreateTableQuery(String tableName, Map<String, String> columns){
@@ -171,6 +172,17 @@ public class Connection {
         executeInsertIntegersQuery("players", playerAsMap);
     }
 
+    public int getLastPlayerId(){
+        ResultSet resultSet = getResultSet("select * from players ORDER BY player_id desc LIMIT 1");
+        try {
+            resultSet.next();
+            return resultSet.getInt("player_id");
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+            return -1;
+        }
+    }
+
     public void updatePlayer(Player player) {
         HashMap<String, String> playerAsMap = playerToMap(player);
         executeUpdateQuery("players", playerAsMap, "player_id", String.valueOf(player.getPlayerId()));
@@ -190,7 +202,7 @@ public class Connection {
         return playerAsMap;
     }
 
-    public void saveItemsWithID(){
+    private void saveItemsWithID(){
         String query = ("INSERT INTO items (name) VALUES ('Potion')");
         executeQuery(query);
         String querySword = ("INSERT INTO items (name) VALUES ('Sword')");

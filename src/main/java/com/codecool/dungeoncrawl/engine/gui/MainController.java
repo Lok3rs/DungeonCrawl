@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl.engine.gui;
 
 import com.codecool.dungeoncrawl.Tiles;
 import com.codecool.dungeoncrawl.engine.database.Connection;
+import com.codecool.dungeoncrawl.engine.database.SaveDao;
 import com.codecool.dungeoncrawl.engine.eventhandlers.KeyboardEventHandler;
 import com.codecool.dungeoncrawl.engine.map.GameMap;
 import com.codecool.dungeoncrawl.engine.map.MapLoader;
@@ -46,7 +47,7 @@ public class MainController {
     private InventoryController inventoryController;
     private boolean isInventoryOn = false;
     private boolean cheatMode = false;
-    private final Connection con = new Connection();
+    private final SaveDao con = new Connection();
 
 
     public void run(Stage stage) {
@@ -56,7 +57,6 @@ public class MainController {
         menu.handleMenu();
         stage.setTitle("Dungeon Crawl");
     }
-
 
 
     public KeyboardEventHandler getKeyboardEventHandler() {
@@ -106,7 +106,7 @@ public class MainController {
         else {
             gameOverMenu.handleMenu();
         }
-        if(map.getPlayer().getCell().getCellType() == CellType.STAIRWAY){
+        if (map.getPlayer().getCell().getCellType() == CellType.STAIRWAY) {
             this.map = MapLoader.loadMap(this.cheatMode, "/map2.txt");
             this.keyboardEventHandler.setMap(this.map);
         }
@@ -151,15 +151,9 @@ public class MainController {
 
     public void savePlayer() {
         con.savePlayer(map.getPlayer());
-        ResultSet resultSet = con.getResultSet("select * from players ORDER BY player_id desc LIMIT 1");
-        try {
-            resultSet.next();
-            int player_id = resultSet.getInt("player_id");
-            map.getPlayer().setPlayerId(player_id);
-        } catch (SQLException throwable) {
-            throwable.printStackTrace();
-        }
+        map.getPlayer().setPlayerId(con.getLastPlayerId());
     }
+
 
     public void save() {
         con.updatePlayer(map.getPlayer());
