@@ -186,6 +186,7 @@ public class Connection implements SaveDao {
     public void updatePlayer(Player player) {
         HashMap<String, String> playerAsMap = playerToMap(player);
         executeUpdateQuery("players", playerAsMap, "player_id", String.valueOf(player.getPlayerId()));
+        saveInventory(player);
     }
 
     private HashMap<String, String> playerToMap(Player player) {
@@ -203,15 +204,36 @@ public class Connection implements SaveDao {
     }
 
     private void saveItemsWithID(){
-        String query = ("INSERT INTO items (name) VALUES ('Potion')");
+        String deleteQuery = ("DELETE FROM items");
+        executeQuery(deleteQuery);
+        String query = ("INSERT INTO items (item_id, name) VALUES (1, 'Potion')");
         executeQuery(query);
-        String querySword = ("INSERT INTO items (name) VALUES ('Sword')");
+        String querySword = ("INSERT INTO items (item_id, name) VALUES (2, 'Sword')");
         executeQuery(querySword);
-        String queryGoldKey = ("INSERT INTO items (name) VALUES ('Gold Key')");
+        String queryGoldKey = ("INSERT INTO items (item_id, name) VALUES (3, 'Gold Key')");
         executeQuery(queryGoldKey);
-        String querySilverKey = ("INSERT INTO items (name) VALUES ('Silver Key')");
+        String querySilverKey = ("INSERT INTO items (item_id, name) VALUES (4, 'Silver Key')");
         executeQuery(querySilverKey);
 
+    }
+
+    private void saveInventory(Player player){
+        int playerId = player.getPlayerId();
+        String deleteQuery = String.format("DELETE from inventory WHERE player_id = %s ", playerId);
+        ArrayList<Item> inventory = player.getInventory();
+        for (Item item : inventory) {
+            String query = String.format("SELECT item_id FROM items WHERE name = '%s'", item.getName());
+            ResultSet resultSet = getResultSet(query);
+            try {
+                resultSet.next();
+                int itemId = resultSet.getInt("item_id");
+                String insertQuery = String.format("INSERT INTO inventory (player_id, item_id) VALUES (%s, %s)", playerId, itemId);
+                executeQuery(insertQuery);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }
     }
 
 }
