@@ -10,5 +10,23 @@ public class Load implements LoadDao{
         return conn.getResultSet(query);
     }
 
+    @Override
+    public void loadGame() {
+        
+    }
 
+    @Override
+    public ResultSet loadPlayer() {
+        return null;
+    }
+
+    @Override
+    public ResultSet loadMonsters() {
+        return null;
+    }
+
+    @Override
+    public ResultSet loadInventory() {
+        return null;
+    }
 }
