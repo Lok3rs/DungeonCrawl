@@ -1,9 +1,11 @@
 package com.codecool.dungeoncrawl.engine.database;
 
+import javafx.scene.Scene;
+
 import java.sql.ResultSet;
 
 public interface LoadDao {
-    void loadGame();
+    Scene loadGame();
     ResultSet loadPlayer();
     ResultSet loadMonsters();
     ResultSet loadInventory();

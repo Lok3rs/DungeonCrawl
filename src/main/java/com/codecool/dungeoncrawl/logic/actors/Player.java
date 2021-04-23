@@ -73,7 +73,7 @@ public class Player extends Actor {
         return this.name;
     }
 
-    private void levelUp() {
+    public void levelUp() {
         this.level += 1;
         this.currentExp = this.currentExp - this.expToNextLevel;
         this.expToNextLevel += 50 * level;
@@ -90,6 +90,10 @@ public class Player extends Actor {
 
     public int getCurrentExp() {
         return currentExp;
+    }
+
+    public void setCurrentExp(int currentExp) {
+        this.currentExp = currentExp;
     }
 
     public int getExpToNextLevel() {

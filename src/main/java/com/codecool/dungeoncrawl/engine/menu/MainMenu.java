@@ -119,8 +119,8 @@ public class MainMenu extends Menu{
                 saveBtn.setTranslateX(340);
                 saveBtn.setTranslateY(positionY);
                 saveBtn.setOnAction(e -> {
-                    Load load = new Load(playerId);
-                    load.loadGame();
+                    Load load = new Load(playerId, stage, mainController);
+                    stage.setScene(load.loadGame());
                 });
                 positionY += 30;
             }
