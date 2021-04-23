@@ -1,6 +1,9 @@
 package com.codecool.dungeoncrawl.engine.menu;
 
+import com.codecool.dungeoncrawl.engine.database.Load;
+import com.codecool.dungeoncrawl.engine.database.LoadDao;
 import com.codecool.dungeoncrawl.engine.gui.MainController;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +12,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class MainMenu extends Menu{
@@ -91,7 +97,10 @@ public class MainMenu extends Menu{
     }
 
     private void loadGameScreen(){
+        Group group = new Group();
         BorderPane borderPane = new BorderPane();
+        StackPane stackPane = new StackPane();
+        group.getChildren().addAll(borderPane, stackPane);
         stage.hide();
         context.clearRect(0.0, 0.0, 700.0, 700.0);
         context.setFill(Color.BLACK);
@@ -99,7 +108,21 @@ public class MainMenu extends Menu{
         context.setFill(Color.RED);
         context.fillText("SAVED GAMES", 360, 170);
         borderPane.setCenter(canvas);
-        Scene scene = new Scene(borderPane);
+        ResultSet saves = Load.getSaves();
+        try{
+            int positionY = 180;
+            while (saves.next()){
+                Button saveBtn = new Button();
+                saveBtn.setText(String.format("%s - %s", saves.getString("name"), saves.getDate("created_at")));
+                stackPane.getChildren().add(saveBtn);
+                saveBtn.setTranslateX(340);
+                saveBtn.setTranslateY(positionY);
+                positionY += 30;
+            }
+        } catch (SQLException e){
+            System.out.println("Error occurred while getting saved games in MainMenu.loadGameScreen");
+        }
+        Scene scene = new Scene(group);
         stage.setScene(scene);
         stage.show();
     }
