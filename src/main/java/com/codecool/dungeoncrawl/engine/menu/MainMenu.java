@@ -113,10 +113,15 @@ public class MainMenu extends Menu{
             int positionY = 180;
             while (saves.next()){
                 Button saveBtn = new Button();
+                Integer playerId = saves.getInt("player_id");
                 saveBtn.setText(String.format("%s - %s", saves.getString("name"), saves.getDate("created_at")));
                 stackPane.getChildren().add(saveBtn);
                 saveBtn.setTranslateX(340);
                 saveBtn.setTranslateY(positionY);
+                saveBtn.setOnAction(e -> {
+                    Load load = new Load(playerId);
+                    load.loadGame();
+                });
                 positionY += 30;
             }
         } catch (SQLException e){
