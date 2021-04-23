@@ -120,7 +120,7 @@ public class MainMenu extends Menu{
                 saveBtn.setTranslateY(positionY);
                 saveBtn.setOnAction(e -> {
                     Load load = new Load(playerId, stage, mainController);
-                    stage.setScene(load.loadGame());
+                    stage.setScene(mainController.loadGame(load));
                 });
                 positionY += 30;
             }
